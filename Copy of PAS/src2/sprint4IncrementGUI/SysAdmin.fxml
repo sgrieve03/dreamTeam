@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane maxHeight="550.0" maxWidth="750.0" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sprint4IncrementGUI.SysAdminController">
+   <children>
+      <Button fx:id="buttonLogOut" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="35.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonSwitchUser" mnemonicParsing="false" text="Switch User" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </StackPane.margin>
+      </Button>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="1.5" StackPane.alignment="TOP_LEFT">
+         <image>
+            <Image url="@NHS-RGB.jpg" />
+         </image>
+         <StackPane.margin>
+            <Insets left="5.0" top="20.0" />
+         </StackPane.margin>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="0.9" StackPane.alignment="TOP_CENTER">
+         <image>
+            <Image url="@PAS_logo.gif" />
+         </image>
+         <StackPane.margin>
+            <Insets right="330.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Label text="SYSTEM ADMIN" StackPane.alignment="TOP_CENTER">
+         <font>
+            <Font size="62.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="220.0" top="5.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Triage Queue Report" StackPane.alignment="CENTER_RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" right="40.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Bay Report" StackPane.alignment="CENTER_RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" right="60.0" top="500.0" />
+         </StackPane.margin>
+      </Label>
+      <TextArea fx:id="textTriageQueue" maxHeight="180.0" maxWidth="200.0" minHeight="180.0" minWidth="200.0" prefHeight="180.0" prefWidth="200.0" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets bottom="350.0" right="10.0" top="280.0" />
+         </StackPane.margin>
+      </TextArea>
+      <TextArea fx:id="textBayQueue" maxHeight="60.0" maxWidth="200.0" minHeight="60.0" minWidth="200.0" prefHeight="60.0" prefWidth="200.0" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets bottom="350.0" right="10.0" top="600.0" />
+         </StackPane.margin>
+      </TextArea>
+      <ChoiceBox fx:id="choiceSystemLog" prefWidth="150.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="120.0" />
+         </StackPane.margin>
+      </ChoiceBox>
+      <Label text="Category" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="System Log" StackPane.alignment="CENTER_LEFT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Event Log" StackPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Category" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <ChoiceBox fx:id="choiceEvent" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="120.0" />
+         </StackPane.margin>
+      </ChoiceBox>
+      <Label text="Metrics" StackPane.alignment="CENTER_LEFT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="10.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Category" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets left="10.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <ChoiceBox fx:id="choiceMetrics" prefWidth="150.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets left="90.0" top="60.0" />
+         </StackPane.margin>
+      </ChoiceBox>
+      <Button fx:id="buttonInitialisePAS" mnemonicParsing="false" text="Initialise PAS" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="10.0" />
+         </StackPane.margin>
+      </Button>
+   </children>
+</StackPane>

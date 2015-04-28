@@ -1,0 +1,35 @@
+/**
+ * vista.css
+ *   Place in the same source directory as Main.java
+ *   Ensure that your build system copies this file to your build output directory.
+ */
+ 
+#headerLabel {
+    -fx-background-color: grey;
+    -fx-text-fill: white;
+    -fx-padding: 5px;
+}
+ 
+#vistaHolder {
+    -fx-background-color: #ffffff;
+}
+ 
+#vista1 {
+    -fx-background-color: aliceblue;
+}
+ 
+#vista2 {
+    -fx-background-color: coral;
+}
+ 
+.button {
+    -fx-base: aliceblue;
+    -fx-font-size: 12px;
+}
+
+.progress-bar { -fx-box-border: goldenrod; }
+
+.green-bar  { -fx-accent: green;  }
+.yellow-bar { -fx-accent: yellow; }
+.orange-bar { -fx-accent: orange; }
+.red-bar    { -fx-accent: red;    }

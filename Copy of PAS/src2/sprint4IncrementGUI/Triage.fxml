@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane maxHeight="550.0" maxWidth="750.0" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sprint4IncrementGUI.TriageController">
+   <children>
+      <Button fx:id="buttonLogOut" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="35.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonSwitchUser" mnemonicParsing="false" text="Switch User" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </StackPane.margin>
+      </Button>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="1.5" StackPane.alignment="TOP_LEFT">
+         <image>
+            <Image url="@NHS-RGB.jpg" />
+         </image>
+         <StackPane.margin>
+            <Insets left="5.0" top="20.0" />
+         </StackPane.margin>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="0.9" StackPane.alignment="TOP_CENTER">
+         <image>
+            <Image url="@PAS_logo.gif" />
+         </image>
+         <StackPane.margin>
+            <Insets right="330.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Label text="TRIAGE" StackPane.alignment="TOP_CENTER">
+         <font>
+            <Font size="62.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="-20.0" top="5.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Triage Queue" StackPane.alignment="CENTER_RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" right="80.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <ChoiceBox fx:id="choiceTriageList" prefWidth="150.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="120.0" />
+         </StackPane.margin>
+      </ChoiceBox>
+      <Label text="Patient" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Triage List" StackPane.alignment="CENTER_LEFT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" left="80.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Update Patient" StackPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Triage Category" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="180.0" />
+         </StackPane.margin>
+      </Label>
+      <ChoiceBox fx:id="choiceCategory" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="180.0" />
+         </StackPane.margin>
+      </ChoiceBox>
+      <Button fx:id="buttonUpdatePatient" mnemonicParsing="false" text="Update Patient" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="270.0" top="680.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Date of Accident" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="300.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Time of Accident" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="360.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Nature of Accident" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="420.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Symptoms" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="480.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Notes" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="600.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textDateOfAcc" maxWidth="100.0" promptText="DD/MM/YY" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="300.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textTimeOfAcc" maxWidth="100.0" promptText="HH:MM" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="360.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textNatureOfAcc" maxWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="420.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextArea fx:id="textSymptoms" maxHeight="60.0" maxWidth="100.0" minHeight="60.0" minWidth="100.0" prefHeight="60.0" prefWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="520.0" />
+         </StackPane.margin>
+      </TextArea>
+      <TextArea fx:id="textNotes" maxHeight="60.0" maxWidth="100.0" minHeight="60.0" minWidth="100.0" prefHeight="60.0" prefWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="650.0" />
+         </StackPane.margin>
+      </TextArea>
+      <Button fx:id="buttonUpdateQueue" mnemonicParsing="false" text="Update Queue" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="270.0" top="740.0" />
+         </StackPane.margin>
+      </Button>
+      <TableView fx:id="tableTriageQueue" maxHeight="120.0" maxWidth="250.0" minHeight="120.0" minWidth="250.0" prefHeight="120.0" prefWidth="250.0" StackPane.alignment="CENTER_RIGHT">
+         <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="C2" />
+         </columns>
+         <StackPane.margin>
+            <Insets bottom="140.0" right="10.0" />
+         </StackPane.margin>
+      </TableView>
+      <Label text="Patient" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textPatient" maxWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="410.0" left="100.0" top="180.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Category" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="270.0" top="240.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textCategory" maxWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="240.0" />
+         </StackPane.margin>
+      </TextField>
+   </children>
+</StackPane>
