@@ -75,8 +75,8 @@ public class TreatmentController implements Initializable {
 		assert treatmentButton != null : "fx:id=\"myButton\" was not injected: check your FXML file 'simple.fxml'.";
 		assert buttonLogOut != null : "fx:id=\"buttonLogOut\" was not injected: check your FXML file 'Reception.fxml'.";
 		assert buttonSwitchUser != null : "fx:id=\"buttonSwitchUser\" was not injected: check your FXML file 'Reception.fxml'.";
-		assert buttonAdmit != null : "fx:id=\"buttonAdmit\" was not injected: check your FXML file 'Treatment.fxml'.";
-		assert buttonDeceased != null : "fx:id=\"buttonDeceased\" was not injected: check your FXML file 'Treatment.fxml'.";
+		//assert buttonAdmit != null : "fx:id=\"buttonAdmit\" was not injected: check your FXML file 'Treatment.fxml'.";
+		//assert buttonDeceased != null : "fx:id=\"buttonDeceased\" was not injected: check your FXML file 'Treatment.fxml'.";
 		
 		// initialize your logic here: all @FXML variables will have been
 		// injected
@@ -140,22 +140,8 @@ public class TreatmentController implements Initializable {
 			}
 		});
 
-		buttonAdmit.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				
-			}
-		});
+	
 		
-		
-		buttonDeceased.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				
-			}
-		});
 
 		OutputStream out = new OutputStream() {
 			@Override

@@ -73,7 +73,7 @@ public class BayManager implements Serializable {
 		System.out.println(this.patient.getPatientID());
 		System.out.println(this.patient.getFirstName());
 		System.out.println(this.patient.getTimeEnteredTriage());
-		System.out.println(this.patient.getWaitingTime());
+		
 		System.out.println(this.patient.getTimeEnteredBays());
 
 		// set the time the patient entered bays to the current time. Comparing
@@ -88,7 +88,7 @@ public class BayManager implements Serializable {
 		// the
 		// Efficiencies within the ER
 		this.patient.setWaitingTime();
-
+		System.out.println(this.patient.getWaitingTime());
 		// Again printlns for testing and will be removed
 		System.out.println(this.patient.getFirstName() + " entered bay = "
 				+ patient.getTimeEnteredBays());

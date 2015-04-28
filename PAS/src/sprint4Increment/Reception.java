@@ -144,13 +144,13 @@ public class Reception {
 	public void sendToTriage(Patient patient, HospitalRunner runner) throws Exception {
 		
 		this.hospitalRunner = runner;
+		
 		if (triageManager.checkTriageList()) {
-		//triageManager.patientHandler(patient, bayManager, triageManager);
+	
 	
 		triageManager.visitTriageNurse(patient);
 		}
-		//bayManager.processBaysQue();
-		//triageManager.processQue();
+	System.out.println(patient.getPatientID());
 		HospitalBackup.writeToFile(runner, "Runner");
 		HospitalBackup.writeToFile(reception, "Reception");
 	}

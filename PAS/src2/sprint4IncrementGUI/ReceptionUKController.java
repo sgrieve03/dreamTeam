@@ -64,8 +64,6 @@ public class ReceptionUKController implements Initializable {
 
 	private HospitalRunner runner;
 
-	private TriageManager tM;
-
 	@FXML
 	private Label labelTriageProgress;
 
@@ -94,10 +92,7 @@ public class ReceptionUKController implements Initializable {
 	 * database connection
 	 */
 	DBConnection dbConnection = new DBConnection();
-	/**
-	 * reception instance
-	 */
-	Reception reception = new Reception();
+
 	/**
 	 * patient title
 	 */
@@ -206,310 +201,272 @@ public class ReceptionUKController implements Initializable {
 	@Override
 	// This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-		assert buttonSearchNHSNumber != null : "fx:id=\"buttonNHSNUmber\" was not injected: check your FXML file 'Reception.fxml'.";
-		assert buttonSearchFNLNPCDOB != null : "fx:id=\"buttonSearchFNLNPCDOB\" was not injected: check your FXML file 'Reception.fxml'.";
-		assert buttonAdmitConsciousPatient != null : "fx:id=\"buttonAdmitConsciousPatient\" was not injected: check your FXML file 'Reception.fxml'.";
-		assert buttonAdmitUnconsciousPatient != null : "fx:id=\"buttonAdmitUnconsciousPatient\" was not injected: check your FXML file 'Reception.fxml'.";
-		assert buttonLogOut != null : "fx:id=\"buttonLogOut\" was not injected: check your FXML file 'Reception.fxml'.";
-		assert buttonSwitchUser != null : "fx:id=\"buttonSwitchUser\" was not injected: check your FXML file 'Reception.fxml'.";
-		// initialize your logic here: all @FXML variables will have been
-		// injected
 
-		Platform.runLater(() -> textNHSNumber.requestFocus());
+		
+			assert buttonSearchNHSNumber != null : "fx:id=\"buttonNHSNUmber\" was not injected: check your FXML file 'Reception.fxml'.";
+			assert buttonSearchFNLNPCDOB != null : "fx:id=\"buttonSearchFNLNPCDOB\" was not injected: check your FXML file 'Reception.fxml'.";
+			assert buttonAdmitConsciousPatient != null : "fx:id=\"buttonAdmitConsciousPatient\" was not injected: check your FXML file 'Reception.fxml'.";
+			assert buttonAdmitUnconsciousPatient != null : "fx:id=\"buttonAdmitUnconsciousPatient\" was not injected: check your FXML file 'Reception.fxml'.";
+			assert buttonLogOut != null : "fx:id=\"buttonLogOut\" was not injected: check your FXML file 'Reception.fxml'.";
+			assert buttonSwitchUser != null : "fx:id=\"buttonSwitchUser\" was not injected: check your FXML file 'Reception.fxml'.";
+			// initialize your logic here: all @FXML variables will have been
+			// injected
 
-		/*
-		 * ObservableList<Patient> triageReport =
-		 * FXCollections.observableArrayList();
-		 * 
-		 * for(Patient p : tM.triageList) { triageReport.add(p); }
-		 * 
-		 * tableTriageQueue.setItems(triageReport);
-		 */
+			Platform.runLater(() -> textNHSNumber.requestFocus());
 
-		TableColumn<Patient, Integer> patientIDCol = new TableColumn<Patient, Integer>(
-				"Patient ID");
-		patientIDCol.setCellValueFactory(new PropertyValueFactory("patientID"));
-		TableColumn<Patient, String> waitingTimeCol = new TableColumn<Patient, String>(
-				"Waiting Time");
-		waitingTimeCol.setCellValueFactory(new PropertyValueFactory(
-				"waitingTime"));
-		tableTriageQueue.getColumns().setAll(patientIDCol, waitingTimeCol);
+			TableColumn<Patient, Integer> patientIDCol = new TableColumn<Patient, Integer>(
+					"Patient ID");
+			patientIDCol.setCellValueFactory(new PropertyValueFactory(
+					"patientID"));
+			TableColumn<Patient, String> waitingTimeCol = new TableColumn<Patient, String>(
+					"Waiting Time");
+			waitingTimeCol.setCellValueFactory(new PropertyValueFactory(
+					"waitingTime"));
+			tableTriageQueue.getColumns().setAll(patientIDCol, waitingTimeCol);
 
-		// progress bar indicates triage list status
-		int triageStatus = ((Integer) tM.triageList.size());
-		int triageBar = 0;
-		if (triageStatus <= 3) {
-			triageBar = 1;
-		} else if ((triageStatus >= 4) && (triageStatus <= 6)) {
-			triageBar = 2;
-		} else if ((triageStatus >= 7) && (triageStatus <= 10)) {
-			triageBar = 3;
-		}
+			// progress bar indicates triage list status
+			int triageStatus = ((Integer) TriageManager.triageList.size());
+			int triageBar = 0;
+			if (triageStatus <= 3) {
+				triageBar = 1;
+			} else if ((triageStatus >= 4) && (triageStatus <= 6)) {
+				triageBar = 2;
+			} else if ((triageStatus >= 7) && (triageStatus <= 10)) {
+				triageBar = 3;
+			}
 
-		labelTriageProgress.setText("Triage List at " + (triageStatus * 10)
-				+ "% capacity");
-		switch (triageBar) {
-		case 1:
-			setBarStyleClass(progressTriageList, GREEN_BAR);
-			break;
-		case 2:
-			setBarStyleClass(progressTriageList, YELLOW_BAR);
-			break;
-		case 3:
-			setBarStyleClass(progressTriageList, RED_BAR);
-			break;
-		default:
-		}
-		progressTriageList.setProgress(triageStatus);
+			labelTriageProgress.setText("Triage List at " + (triageStatus * 10)
+					+ "% capacity");
+			switch (triageBar) {
+			case 1:
+				setBarStyleClass(progressTriageList, GREEN_BAR);
+				break;
+			case 2:
+				setBarStyleClass(progressTriageList, YELLOW_BAR);
+				break;
+			case 3:
+				setBarStyleClass(progressTriageList, RED_BAR);
+				break;
+			default:
+			}
+			progressTriageList.setProgress(triageStatus);
 
-		buttonUpdateTriage.setOnAction(new EventHandler<ActionEvent>() {
+			buttonUpdateTriage.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent event) {
-				ObservableList<Patient> triageReport = FXCollections
-						.observableArrayList();
-				for (Patient p : tM.triageList) {
-					if (!triageReport.contains(p)) {
-						triageReport.add(p);
+				@Override
+				public void handle(ActionEvent event) {
+					ObservableList<Patient> triageReport = FXCollections
+							.observableArrayList();
+					for (Patient p : TriageManager.triageList) {
+						if (!triageReport.contains(p)) {
+							triageReport.add(p);
+						}
+					}
+					tableTriageQueue.setItems(triageReport);
+					TableColumn<Patient, Integer> patientIDCol = new TableColumn<Patient, Integer>(
+							"Patient ID");
+					patientIDCol.setCellValueFactory(new PropertyValueFactory(
+							"patientID"));
+					TableColumn<Patient, String> waitingTimeCol = new TableColumn<Patient, String>(
+							"Waiting Time");
+					waitingTimeCol
+							.setCellValueFactory(new PropertyValueFactory(
+									"waitingTime"));
+					tableTriageQueue.getColumns().setAll(patientIDCol,
+							waitingTimeCol);
+
+					// progress bar indicates triage list status
+					int triageStatus = ((Integer) TriageManager.triageList
+							.size());
+					int triageBar = 0;
+					if (triageStatus <= 3) {
+						triageBar = 1;
+					} else if ((triageStatus >= 4) && (triageStatus <= 6)) {
+						triageBar = 2;
+					} else if ((triageStatus >= 7) && (triageStatus <= 10)) {
+						triageBar = 3;
+					}
+
+					labelTriageProgress.setText("Triage List at "
+							+ (triageStatus * 10) + "% capacity");
+					switch (triageBar) {
+					case 1:
+						setBarStyleClass(progressTriageList, GREEN_BAR);
+						break;
+					case 2:
+						setBarStyleClass(progressTriageList, YELLOW_BAR);
+						break;
+					case 3:
+						setBarStyleClass(progressTriageList, RED_BAR);
+						break;
+					default:
+					}
+					progressTriageList.setProgress(triageStatus);
+				}
+			});
+
+			buttonSwitchUser.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+
+					VistaNavigator.loadVista(VistaNavigator.VISTA_1);
+				}
+
+			});
+
+			buttonLogOut.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					Stage stage0 = (Stage) buttonLogOut.getScene().getWindow();
+					System.exit(0);
+				}
+			});
+
+			buttonSearchFNLNPCDOB.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					Stage stage0 = (Stage) buttonSearchFNLNPCDOB.getScene()
+							.getWindow();
+					patient = dbConnection
+							.searchPatientByFirstNameSurnamePostCodeDOB(
+									textFirstName.getText(),
+									textLastName.getText(),
+									textPostCode.getText(), textDOB.getText());
+					if (patient.getNHSNumber() != null) {
+						setAll();
+					} else if (patient.getNHSNumber() == null) {
+						MessageBox.show(stage0, "Patient not found",
+								"Try again.", MessageBox.ICON_INFORMATION
+										| MessageBox.OK);
+						clearAll();
 					}
 				}
-				tableTriageQueue.setItems(triageReport);
-				TableColumn<Patient, Integer> patientIDCol = new TableColumn<Patient, Integer>(
-						"Patient ID");
-				patientIDCol.setCellValueFactory(new PropertyValueFactory(
-						"patientID"));
-				TableColumn<Patient, String> waitingTimeCol = new TableColumn<Patient, String>(
-						"Waiting Time");
-				waitingTimeCol.setCellValueFactory(new PropertyValueFactory(
-						"waitingTime"));
-				tableTriageQueue.getColumns().setAll(patientIDCol,
-						waitingTimeCol);
+			});
 
-				// progress bar indicates triage list status
-				int triageStatus = ((Integer) tM.triageList.size());
-				int triageBar = 0;
-				if (triageStatus <= 3) {
-					triageBar = 1;
-				} else if ((triageStatus >= 4) && (triageStatus <= 6)) {
-					triageBar = 2;
-				} else if ((triageStatus >= 7) && (triageStatus <= 10)) {
-					triageBar = 3;
-				}
+			buttonSearchNHSNumber.setOnAction(new EventHandler<ActionEvent>() {
 
-				labelTriageProgress.setText("Triage List at "
-						+ (triageStatus * 10) + "% capacity");
-				switch (triageBar) {
-				case 1:
-					setBarStyleClass(progressTriageList, GREEN_BAR);
-					break;
-				case 2:
-					setBarStyleClass(progressTriageList, YELLOW_BAR);
-					break;
-				case 3:
-					setBarStyleClass(progressTriageList, RED_BAR);
-					break;
-				default:
-				}
-				progressTriageList.setProgress(triageStatus);
-			}
-		});
-
-		buttonSwitchUser.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-
-				VistaNavigator.loadVista(VistaNavigator.VISTA_1);
-			}
-
-		});
-
-		buttonLogOut.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				Stage stage0 = (Stage) buttonLogOut.getScene().getWindow();
-				System.exit(0);
-			}
-		});
-
-		buttonSearchFNLNPCDOB.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				Stage stage0 = (Stage) buttonSearchFNLNPCDOB.getScene()
-						.getWindow();
-				patient = dbConnection
-						.searchPatientByFirstNameSurnamePostCodeDOB(
-								textFirstName.getText(),
-								textLastName.getText(), textPostCode.getText(),
-								textDOB.getText());
-				if (patient.getNHSNumber() != null) {
-					textFirstName.setText(patient.getFirstName());
-					textLastName.setText(patient.getLastName());
-					textPostCode.setText(patient.getPostCode());
-					textDOB.setText(patient.getDateOfBirth());
-					textGender.setText(String.valueOf(patient.getGender()));
-					textAllergies.setText(patient.getAllergies());
-					textBloodGroup.setText(patient.getBloodGroup());
-					textTelephone.setText(patient.getTelephone());
-					textTitle.setText(patient.getTitle());
-					textExistingCon.setText(patient.getExistingConditions());
-					textNHSNumber.setText(patient.getNHSNumber());
-				} else if (patient.getNHSNumber() == null) {
-					MessageBox.show(stage0, "Patient not found", "Try again.",
-							MessageBox.ICON_INFORMATION | MessageBox.OK);
-					textFirstName.clear();
-					textLastName.clear();
-					textPostCode.clear();
-					textDOB.clear();
-					textGender.clear();
-					textAllergies.clear();
-					textBloodGroup.clear();
-					textTelephone.clear();
-					textTitle.clear();
-					textExistingCon.clear();
-					textNHSNumber.clear();
-				}
-			}
-		});
-
-		buttonSearchNHSNumber.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				Stage stage0 = (Stage) buttonSearchNHSNumber.getScene()
-						.getWindow();
-				patient = dbConnection.searchPatientByNHSNumber(textNHSNumber
-						.getText());
-				if (patient.getNHSNumber() != null) {
-					textFirstName.setText(patient.getFirstName());
-					textLastName.setText(patient.getLastName());
-					textPostCode.setText(patient.getPostCode());
-					textGender.setText(String.valueOf(patient.getGender()));
-					textAllergies.setText(patient.getAllergies());
-					textBloodGroup.setText(patient.getBloodGroup());
-					textTelephone.setText(patient.getTelephone());
-					textTitle.setText(patient.getTitle());
-					textExistingCon.setText(patient.getExistingConditions());
-					textDOB.setText(patient.getDateOfBirth());
-					textPatientID.setText(String.valueOf(patient.getPatientID()));
-				} else if (patient.getNHSNumber() == null) {
-					MessageBox.show(stage0, "Patient not found", "Try again.",
-							MessageBox.ICON_INFORMATION | MessageBox.OK);
-					textFirstName.clear();
-					textLastName.clear();
-					textPostCode.clear();
-					textDOB.clear();
-					textGender.clear();
-					textAllergies.clear();
-					textBloodGroup.clear();
-					textTelephone.clear();
-					textTitle.clear();
-					textExistingCon.clear();
-					textNHSNumber.clear();
-				}
-			}
-		});
-
-		buttonClearAllConscious.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-
-				clearAll();
-			}
-		});
-
-		buttonClearGenderUnconscious
-				.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent event) {
-
-						textGenderUnconscious.clear();
-
+				@Override
+				public void handle(ActionEvent event) {
+					Stage stage0 = (Stage) buttonSearchNHSNumber.getScene()
+							.getWindow();
+					patient = dbConnection
+							.searchPatientByNHSNumber(textNHSNumber.getText());
+					if (patient.getNHSNumber() != null) {
+						setAll();
+					} else if (patient.getNHSNumber() == null) {
+						MessageBox.show(stage0, "Patient not found",
+								"Try again.", MessageBox.ICON_INFORMATION
+										| MessageBox.OK);
+						clearAll();
 					}
-				});
+				}
+			});
 
-		buttonAdmitConsciousPatient
-				.setOnAction(new EventHandler<ActionEvent>() {
+			buttonClearAllConscious
+					.setOnAction(new EventHandler<ActionEvent>() {
 
-					@Override
-					public void handle(ActionEvent event) {
+						@Override
+						public void handle(ActionEvent event) {
 
-						if (TriageController.triageAvailable) {
-
-							TriageController.triageAvailable=false;
-							try {
-								reception.sendToTriage(patient, runner);
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-							ObservableList<Patient> triageReport = FXCollections
-									.observableArrayList();
-
-							for (Patient p : TriageManager.triageList) {
-								if (!triageReport.contains(p)) {
-									triageReport.add(p);
-								}
-							}
-
-							tableTriageQueue.setItems(triageReport);
-
-							TableColumn<Patient, Integer> patientIDCol = new TableColumn<Patient, Integer>(
-									"Patient ID");
-							patientIDCol
-									.setCellValueFactory(new PropertyValueFactory(
-											"patientID"));
-							TableColumn<Patient, String> waitingTimeCol = new TableColumn<Patient, String>(
-									"Waiting Time");
-							waitingTimeCol
-									.setCellValueFactory(new PropertyValueFactory(
-											"waitingTime"));
-							tableTriageQueue.getColumns().setAll(patientIDCol,
-									waitingTimeCol);
 							clearAll();
+						}
+					});
 
-						}// end while triageNurseFree
-					}
+			buttonClearGenderUnconscious
+					.setOnAction(new EventHandler<ActionEvent>() {
 
-				});
+						@Override
+						public void handle(ActionEvent event) {
 
-		buttonAdmitUnconsciousPatient
-				.setOnAction(new EventHandler<ActionEvent>() {
-
-					@Override
-					public void handle(ActionEvent event) {
-						Stage stage0 = (Stage) buttonAdmitUnconsciousPatient
-								.getScene().getWindow();
-						if ((textGenderUnconscious.getText()
-								.equalsIgnoreCase("m"))
-								|| (textGenderUnconscious.getText()
-										.equalsIgnoreCase("f"))) {
-							patient = reception
-									.createPatientUnconscious(textGenderUnconscious
-											.getText());
-						} else if ((!textGenderUnconscious.getText()
-								.equalsIgnoreCase("m"))
-								|| (!textGenderUnconscious.getText()
-										.equalsIgnoreCase("f"))) {
-
-							MessageBox.show(stage0, "Patient not found",
-									"Try again.", MessageBox.ICON_INFORMATION
-											| MessageBox.OK);
 							textGenderUnconscious.clear();
 
 						}
+					});
 
-						patient = reception
-								.createPatientUnconscious(textGenderUnconscious
-										.getText());
+			buttonAdmitConsciousPatient
+					.setOnAction(new EventHandler<ActionEvent>() {
 
-					}
-				});
+						@Override
+						public void handle(ActionEvent event) {
+
+							if (TriageController.triageAvailable) {
+
+								TriageController.triageAvailable = false;
+								try {
+									Reception.reception.sendToTriage(patient,
+											runner);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
+								ObservableList<Patient> triageReport = FXCollections
+										.observableArrayList();
+
+								for (Patient p : TriageManager.triageList) {
+									if (!triageReport.contains(p)) {
+										triageReport.add(p);
+									}
+								}
+
+								tableTriageQueue.setItems(triageReport);
+
+								TableColumn<Patient, Integer> patientIDCol = new TableColumn<Patient, Integer>(
+										"Patient ID");
+								patientIDCol
+										.setCellValueFactory(new PropertyValueFactory(
+												"patientID"));
+								TableColumn<Patient, String> waitingTimeCol = new TableColumn<Patient, String>(
+										"Waiting Time");
+								waitingTimeCol
+										.setCellValueFactory(new PropertyValueFactory(
+												"waitingTime"));
+								tableTriageQueue.getColumns().setAll(
+										patientIDCol, waitingTimeCol);
+								clearAll();
+
+							}// end while triageNurseFree
+						}
+
+					});
+
+			buttonAdmitUnconsciousPatient
+					.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							Stage stage0 = (Stage) buttonAdmitUnconsciousPatient
+									.getScene().getWindow();
+							if ((textGenderUnconscious.getText()
+									.equalsIgnoreCase("m"))
+									|| (textGenderUnconscious.getText()
+											.equalsIgnoreCase("f"))) {
+								patient = Reception.reception
+										.createPatientUnconscious(textGenderUnconscious
+												.getText());
+							} else if ((!textGenderUnconscious.getText()
+									.equalsIgnoreCase("m"))
+									|| (!textGenderUnconscious.getText()
+											.equalsIgnoreCase("f"))) {
+
+								MessageBox.show(stage0, "Patient not found",
+										"Try again.",
+										MessageBox.ICON_INFORMATION
+												| MessageBox.OK);
+								textGenderUnconscious.clear();
+
+							}
+
+							patient = Reception.reception
+									.createPatientUnconscious(textGenderUnconscious
+											.getText());
+
+						}
+					});
+		
 	}
 
 	public static LinkedList<Patient> getPatientList() {
@@ -533,6 +490,20 @@ public class ReceptionUKController implements Initializable {
 		textTitle.clear();
 		textExistingCon.clear();
 		textNHSNumber.clear();
+	}
+
+	public void setAll() {
+		textFirstName.setText(patient.getFirstName());
+		textLastName.setText(patient.getLastName());
+		textPostCode.setText(patient.getPostCode());
+		textGender.setText(String.valueOf(patient.getGender()));
+		textAllergies.setText(patient.getAllergies());
+		textBloodGroup.setText(patient.getBloodGroup());
+		textTelephone.setText(patient.getTelephone());
+		textTitle.setText(patient.getTitle());
+		textExistingCon.setText(patient.getExistingConditions());
+		textDOB.setText(patient.getDateOfBirth());
+		textPatientID.setText(String.valueOf(patient.getPatientID()));
 	}
 
 	private void setBarStyleClass(ProgressBar bar, String barStyleClass) {
