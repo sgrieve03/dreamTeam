@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sprint4IncrementGUI.TreatmentController">
+   <children>
+      <Button fx:id="treatmentButton" mnemonicParsing="false" text="Discharge Patient" StackPane.alignment="BOTTOM_RIGHT">
+         <StackPane.margin>
+            <Insets bottom="10.0" right="10.0" />
+         </StackPane.margin></Button>
+      <TextArea fx:id="treatmentOutput" maxHeight="250.0" maxWidth="200.0" minHeight="-Infinity" minWidth="200.0" prefHeight="150.0" prefWidth="300.0" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets left="30.0" bottom="120.0" />
+         </StackPane.margin></TextArea>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+         <image>
+            <Image url="@NHS-RGB.jpg" />
+         </image>
+      </ImageView>
+      <Label text="PAS JAVA" StackPane.alignment="TOP_CENTER">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+         <StackPane.margin>
+            <Insets right="300.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="BAYS" StackPane.alignment="TOP_CENTER">
+         <StackPane.margin>
+            <Insets top="250.0" />
+         </StackPane.margin>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+       <Button fx:id="buttonAdmit" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="35.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonLogOut" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="35.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonSwitchUser" mnemonicParsing="false" text="Switch User" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Next from Triage" StackPane.alignment="BOTTOM_LEFT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <padding>
+            <Insets left="30.0" bottom="80.0"/>
+         </padding>
+      </Label>
+      <TextField fx:id="nextFromTriage" maxWidth="200.0" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets left="30.0" bottom="30.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Patient" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets left="10.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Bay List" StackPane.alignment="CENTER_RIGHT">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="100.0" right="10.0" />
+         </StackPane.margin>
+      </Label>
+       <TableView fx:id="tableBayQueue" maxHeight="120.0" maxWidth="250.0" minHeight="120.0" minWidth="250.0" prefHeight="120.0" prefWidth="250.0" StackPane.alignment="CENTER_RIGHT">
+         <columns>
+            <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="C2" />
+         </columns>
+         <StackPane.margin>
+            <Insets bottom="140.0" right="10.0" />
+         </StackPane.margin>
+      </TableView>
+      <Button fx:id="treatmentButton1" mnemonicParsing="false" text="Extend Treatment" StackPane.alignment="BOTTOM_RIGHT">
+         <StackPane.margin>
+            <Insets bottom="10.0" right="130.0" />
+         </StackPane.margin>
+      </Button>
+   </children>
+</StackPane>
