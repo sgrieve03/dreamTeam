@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sprint4IncrementGUI.ReceptionNonEUController">
+   <children>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="1.5" StackPane.alignment="TOP_LEFT">
+         <image>
+            <Image url="@NHS-RGB.jpg" />
+         </image>
+         <StackPane.margin>
+            <Insets left="5.0" top="20.0" />
+         </StackPane.margin>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="0.9" StackPane.alignment="TOP_CENTER">
+         <image>
+            <Image url="@PAS_logo.gif" />
+         </image>
+         <StackPane.margin>
+            <Insets right="385.0" />
+         </StackPane.margin>
+      </ImageView>
+      <TextField fx:id="textSearchNHSNumber" maxWidth="150.0" promptText="Patient NHS number" text="Patient NHS number" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="5.0" />
+         </StackPane.margin>
+      </TextField>
+      <Button fx:id="buttonNHSNumber" mnemonicParsing="false" text="Search" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="160.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Patient Details" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="buttonAdmitPatient" mnemonicParsing="false" text="Admit Patient" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="90.0" />
+         </StackPane.margin>
+      </Button>
+      <TextField fx:id="textFirstName" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="180.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="First Name" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="180.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textLastName" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="240.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Last Name" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="240.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Address" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="300.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textAddress1" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="300.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textAddress2" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="360.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Post Code" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="420.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textPostCode" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="420.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textNHSNumber" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="120.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="NHS Number" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="buttonSwitchUser" mnemonicParsing="false" text="Switch User" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonLogOut" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="35.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Telephone" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="480.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textTelephone" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="480.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Date of Birth" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="200.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textDOB" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="280.0" top="120.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Mobile" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="540.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textTelephone1" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="540.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Email" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="600.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textTelephone11" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="600.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Blood Type" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="200.0" top="180.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textBloodType" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="280.0" top="180.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Height" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="200.0" top="240.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Weight" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="200.0" top="300.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textHeight" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="280.0" top="240.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textWeight" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="280.0" top="300.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="RECEPTION (non EU patient)" StackPane.alignment="TOP_CENTER">
+         <font>
+            <Font size="38.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="200.0" top="20.0" />
+         </StackPane.margin>
+      </Label>
+   </children>
+</StackPane>

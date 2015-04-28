@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sprint4IncrementGUI.ReceptionMainController">
+   <children>
+       <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="1.5" StackPane.alignment="TOP_LEFT">
+         <image>
+            <Image url="@NHS-RGB.jpg" />
+         </image>
+         <StackPane.margin>
+            <Insets left="5.0" top="20.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Label text="RECEPTION" StackPane.alignment="TOP_CENTER">
+         <StackPane.margin>
+            <Insets left="40.0" top="5.0" />
+         </StackPane.margin>
+         <font>
+            <Font size="62.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="0.9" StackPane.alignment="TOP_CENTER">
+         <image>
+            <Image url="@PAS_logo.gif" />
+         </image>
+         <StackPane.margin>
+            <Insets right="385.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Button fx:id="buttonSwitchUser" mnemonicParsing="false" text="Switch User" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonLogOut" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="35.0" />
+         </StackPane.margin>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" scaleY="1.3" StackPane.alignment="CENTER_LEFT">
+         <image>
+            <Image url="@UK_flag.png" />
+         </image>
+         <StackPane.margin>
+            <Insets left="50.0" />
+         </StackPane.margin>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+         <image>
+            <Image url="@EU_flag.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+         <image>
+            <Image url="@Other_flag.jpg" />
+         </image>
+         <StackPane.margin>
+            <Insets right="50.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Button fx:id="buttonUK" mnemonicParsing="false" text="UK Patient" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets left="115.0" top="170.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonEU" mnemonicParsing="false" text="EU Patient" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets top="170.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonAllOther" mnemonicParsing="false" text="All Other" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets right="95.0" top="170.0" />
+         </StackPane.margin>
+      </Button>
+   </children>
+</StackPane>

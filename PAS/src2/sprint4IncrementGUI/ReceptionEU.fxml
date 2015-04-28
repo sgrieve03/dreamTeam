@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane maxHeight="550.0" maxWidth="750.0" minHeight="550.0" minWidth="750.0" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sprint4IncrementGUI.ReceptionEUController">
+   <children>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="1.5" StackPane.alignment="TOP_LEFT">
+         <image>
+            <Image url="@NHS-RGB.jpg" />
+         </image>
+         <StackPane.margin>
+            <Insets left="5.0" top="20.0" />
+         </StackPane.margin>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="0.9" StackPane.alignment="TOP_CENTER">
+         <image>
+            <Image url="@PAS_logo.gif" />
+         </image>
+         <StackPane.margin>
+            <Insets right="330.0" />
+         </StackPane.margin>
+      </ImageView>
+      <Button fx:id="buttonSearchNHSNumber" mnemonicParsing="false" text="Search" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="200.0" top="120.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Conscious Patient" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="60.0" />
+         </StackPane.margin>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonAdmitConsciousPatient" mnemonicParsing="false" text="Admit Patient" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="10.0" />
+         </StackPane.margin>
+      </Button>
+      <TextField fx:id="textFirstName" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="90.0" top="180.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="First Name" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="10.0" top="180.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textLastName" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="90.0" top="240.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Last Name" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="10.0" top="240.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Post Code" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="10.0" top="300.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textPostCode" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="90.0" top="300.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textNHSNumber" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="120.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="EHIC Number" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="buttonSwitchUser" mnemonicParsing="false" text="Switch User" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="5.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonLogOut" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
+         <StackPane.margin>
+            <Insets right="5.0" top="35.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Telephone" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="10.0" top="420.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textTelephone" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="90.0" top="420.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Date of Birth" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="420.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textDOB" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="420.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Email" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="540.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textTelephone11" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="540.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Blood Group" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="600.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textBloodGroup" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="600.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Gender" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="660.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Allergies" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="720.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textGender" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="660.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textAllergies" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="720.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Title" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="10.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textTitle" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="90.0" top="120.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="Existing Cond" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="10.0" top="780.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textExistingCon" maxWidth="100.0" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="90.0" top="780.0" />
+         </StackPane.margin>
+      </TextField>
+      <Button fx:id="buttonSearchFNLNPCDOB" mnemonicParsing="false" text="Search" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets left="200.0" top="70.0" />
+         </StackPane.margin>
+      </Button>
+      <Button fx:id="buttonClearAllConscious" mnemonicParsing="false" text="Clear All" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets bottom="50.0" left="200.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Unconscious Patient" StackPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="Gender" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="-120.0" top="120.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textGenderUnconscious" maxWidth="100.0" promptText="m/f" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="350.0" left="100.0" top="120.0" />
+         </StackPane.margin>
+      </TextField>
+      <Label text="*" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="190.0" top="180.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="*" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="190.0" top="240.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="*" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="190.0" top="300.0" />
+         </StackPane.margin>
+      </Label>
+      <Label text="*" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets bottom="390.0" left="190.0" top="450.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="buttonAdmitUnconsciousPatient" mnemonicParsing="false" text="Admit Patient" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="-70.0" top="120.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Triage Queue Report" StackPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" left="500.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <TextArea fx:id="textBayQueue" maxHeight="60.0" maxWidth="200.0" minHeight="60.0" minWidth="200.0" prefHeight="60.0" prefWidth="200.0" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets bottom="350.0" right="10.0" top="600.0" />
+         </StackPane.margin>
+      </TextArea>
+      <Label text="Bay Report" StackPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <StackPane.margin>
+            <Insets bottom="350.0" left="420.0" top="500.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="buttonClearGenderUnconscious" mnemonicParsing="false" text="Clear" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets bottom="290.0" left="80.0" top="120.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="Update Patient Details" StackPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label text="Complete relevant fields and press Update" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets left="50.0" top="60.0" />
+         </StackPane.margin>
+      </Label>
+      <Button fx:id="buttonAdmitUnconsciousPatient1" mnemonicParsing="false" text="Update" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets right="110.0" top="120.0" />
+         </StackPane.margin>
+      </Button>
+      <Label text="System ID" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets bottom="10.0" left="10.0" />
+         </StackPane.margin>
+      </Label>
+      <TextField fx:id="textPatientID" maxWidth="100.0" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets bottom="10.0" left="90.0" />
+         </StackPane.margin>
+      </TextField>
+      <Button fx:id="buttonUpdateTriage" mnemonicParsing="false" text="Update" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets right="10.0" top="80.0" />
+         </StackPane.margin>
+      </Button>
+      <TableView fx:id="tableTriageQueue" maxHeight="120.0" maxWidth="200.0" minHeight="120.0" minWidth="200.0" prefHeight="120.0" prefWidth="200.0" StackPane.alignment="CENTER_RIGHT">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+         <StackPane.margin>
+            <Insets bottom="140.0" right="10.0" />
+         </StackPane.margin>
+      </TableView>
+      <Label text="RECEPTION (EU patient)" StackPane.alignment="TOP_CENTER">
+         <font>
+            <Font size="38.0" />
+         </font>
+         <StackPane.margin>
+            <Insets left="180.0" top="20.0" />
+         </StackPane.margin>
+      </Label>
+   </children>
+</StackPane>
