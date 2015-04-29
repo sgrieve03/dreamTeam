@@ -44,7 +44,14 @@ public class TriageManager implements Serializable {
 	 */
 	private final int[] PatientCategories = { EMERGENCY, URGENT, SEMIURGENT,
 			NONURGENT };
-
+	/**
+	 * instantiate the bayManager class
+	 */
+	public static BayManager bayManager = new BayManager();
+	/**
+	 * instantiate the triage class
+	 */
+	public static TriageManager triageManager = new TriageManager();
 	/**
 	 * store the number of time the triage list maximum capacity is breached
 	 */
@@ -89,7 +96,7 @@ public class TriageManager implements Serializable {
 	/**
 	 * used to store the current patient that the oncall team are treating
 	 */
-	Patient onCallPatient;
+	Patient onCallPatient= new Patient();
 	/**
 	 * bayManager adapter object used to discharge patients via oncall insitue
 	 * in bays
@@ -116,6 +123,7 @@ public class TriageManager implements Serializable {
 	 */
 	public boolean checkTriageList() {
 		// used to track if sapces are avaliable
+		readList();
 		boolean spaceAvailable;
 		// if oncall are busy they are working with one patient insitue
 		// this results in only 9 spaces being available in the queue
@@ -136,18 +144,7 @@ public class TriageManager implements Serializable {
 		}
 		return spaceAvailable;
 	}// end check triageList
-	
-	/**
-	 * This moves the patient into the triage class so it can be handled
-	 * 
-	 * @param patient
-	 */
-	public void visitTriageNurse( ) {
-		
-	
-	
-			
-	}// end visit triage nurse
+
 	
 	/**
 	 * This method is used to
@@ -157,53 +154,74 @@ public class TriageManager implements Serializable {
 	 * @param triage
 	 * @throws Exception
 	 */
-	public boolean patientHandler() throws Exception {
+	public void patientHandler() throws Exception {
+		
 		
 		patient=(Patient)HospitalBackup.readFromFile("patientReception");
 		// set the patients waiting time to now
 		patient.setTimeEnteredTriage(TimeHandler.now());
-				
-		boolean patientHandled = false;
-		
-		if(Reception.bayManager.checkBays()){
+		System.out.println("patientReception in patient handler"+patient.getFirstName());	
+		for (int i=0; i<triageList.size(); i++){
+			System.out.println("Setting waiting times");
+			triageList.get(i).setWaitingTime();
+		}
+		System.out.println();
+		bayManager.checkBays();
+		boolean bayFree=HospitalBackup.readBoolean("bayFree");
+		if(bayFree){
 			try {
-				Reception.bayManager.assignBays(patient);
-				patientHandled=true;
+				System.out.println("Is there space in bays?");
+				patient.setWaitingTime();
+				bayManager.assignBays(patient);
+				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if 
+			
+		}
+		
+		else if 
 		// check if patient is emergency, if so and there is a non emergency in
 		// bays swap them round
-		((!Reception.bayManager.checkBays()) && (swappable(patient))
+		
+		((!bayFree) && (swappable(patient))
 				&& (patient.getCategory() == EMERGENCY)) {
+			System.out.println("Is the patient swappable?");
 			// do the swap
 			onCallIn = false;
 			onCallCalled = false;
+			patient.setTimeEnteredBays(TimeHandler.now());
+			patient.setWaitingTime();
 			swap(BayManager.patientListBays.removeLast(), patient);
-			patientHandled=true;
+			
 		}
 
 		else{
 			// adds person to linked list
-			Reception.triageManager.placeInQueue(patient);
-			patientHandled=true;
+			patient.setWaitingTime();
+			triageManager.placeInQueue(patient);
+			System.out.println("Pateint in queue" +patient.getFirstName());
+			
 			
 		}
 		// IF ON CALL ARE CALLED AND THEY HAVE ARRIVED SET ONCALLIN TO TRUE
 		if ((onCallCalled) && (getOnCallTime(1).equals(TimeHandler.now()))) {
 			onCallIn = true;
+			System.out.println("Oncall called in");
 		}
 		// IF ON CALL ARE IN AND THEY ARE NOT BUSY
 		if (onCallIn && !onCallBusy) {
 			// set onCall to true
 			onCallBusy = true;
+			System.out.println("Oncall busy");
 			onCallPatient = triageList.removeFirst();
 			// send the first person in the list to oncall
 			OnCallTreatPatient();
 			// else if oncall are busy
 		} else if (onCallBusy && triageList.getFirst().getCategory() == EMERGENCY) {
+			
+			System.out.println("send alert");
 			// send an alert to the manager to let them know the oncall team can
 			// not treat an emergency patient
 
@@ -211,20 +229,21 @@ public class TriageManager implements Serializable {
 
 		}
 		if (onCallBusy) {
-			Reception.triageManager.dischargeViaOncall();
+			triageManager.dischargeViaOncall();
+			System.out.println("Patient discharged via oncall");
 		}
 
-		for (int i=0; i<triageList.size(); i++){
-			triageList.get(i).setWaitingTime();
-		}
+		
+		
 		// triage queue report
 		triageQueue = new HashMap<Integer, Integer>();
 
 		for (Patient p : triageList) {
 			triageQueue.put(p.getPatientID(), p.getPatientTreatmentTime());
 		}
+		writeList();
 		
-		return patientHandled;
+	
 
 	}
 	
@@ -257,7 +276,8 @@ public class TriageManager implements Serializable {
 		onCallIn = true;
 		onCallPatient.setTimeEnteredBays(TimeHandler.now());
 		onCallPatient.setTimeDischarged(TimeHandler.addTreatmentTime(
-				onCallPatient.getTimeEnteredBays(), 10));
+				TimeHandler.now(), 10));
+		System.out.println("Oncall patient will be discharged at"+onCallPatient.getTimeDischarged());
 	}
 
 	/**
@@ -269,6 +289,7 @@ public class TriageManager implements Serializable {
 		if (TimeHandler.now().equals(onCallPatient.getTimeDischarged())) {
 			// use the bayAdapt object to discharge the patient
 			bayAdapt = new BayManagerAdapter(onCallPatient, Action.DISCHARGED);
+			System.out.println("Patient discharged");
 			// set oncall busy to false as they are now free to treat another
 			// patient
 			onCallBusy = false;
@@ -285,7 +306,9 @@ public class TriageManager implements Serializable {
 		
 		// sort the queue on catagory first and if the waiting time is greater
 		// than 25mins bump to from of queue
-		sorted.displaySortedQueue(triageList);
+		triageList=sorted.displaySortedQueue(triageList);
+		writeList();
+		
 
 	}
 
@@ -302,19 +325,21 @@ public class TriageManager implements Serializable {
 	 * @throws InterruptedException
 	 */
 
-	public void swap(Patient nonEmergency, Patient emergency)
-			throws InterruptedException {
+	public void swap(Patient nonEmergency, Patient emergency) throws InterruptedException {
 		// add the non-emergency patient to triage from bays
-		Reception.triageManager.addFromBays(nonEmergency);
+		emergency.setWaitingTime();
+		triageManager.addFromBays(nonEmergency);
 		// add the emergency patient to bays from triage
-		Reception.bayManager.assignBays(emergency);
+		bayManager.assignBays(emergency);
+		writeList();
+		bayManager.writeList();
 	}// end swap
 
 	/**
 	 * set the time the oncall started working to now
 	 */
 	public void setOnCallTimeToStartWork() {
-		this.onCallTime[2] = TimeHandler.now();
+		onCallTime[2] = TimeHandler.now();
 	}// end set on call time to start work
 
 	/**
@@ -325,11 +350,11 @@ public class TriageManager implements Serializable {
 	 */
 	public void setOncallTimeCalled(int index, String time) {
 		// set the time on call called to now
-		this.onCallTime[index] = time;
+		onCallTime[index] = time;
 		// set the time the oncall will start working to a random number between
 		// 1 and 15 mins
 		// in the future
-		this.onCallTime[1] = TimeHandler.addTreatmentTime(onCallTime[0],
+		onCallTime[1] = TimeHandler.addTreatmentTime(onCallTime[0],
 				rand.nextInt(15) + 1);
 	}
 
@@ -344,10 +369,10 @@ public class TriageManager implements Serializable {
 		boolean swap = false;
 		// if there is no space in bays
 		// sort bays in order ascending from high priorty to low
-		sorted.displaySortedQueue(Reception.bayManager.getPatientListBays());
+		BayManager.patientListBays=sorted.displaySortedQueue(BayManager.patientListBays);
 		// if bays are full and the lowest priority patient is not high priority
 		// and this patient is high priority
-		if (Reception.bayManager.getPatientListBays().getLast().getCategory() > EMERGENCY) {
+		if (BayManager.patientListBays.getLast().getCategory() > EMERGENCY) {
 			// they can be swapped
 			swap = true;
 			onCallCalled = false;
@@ -388,7 +413,7 @@ public class TriageManager implements Serializable {
 		for (int i=0; i<triageList.size(); i++){
 			triageList.get(i).setWaitingTime();
 		}
-	
+	writeList();
 	}
 
 
@@ -401,10 +426,10 @@ public class TriageManager implements Serializable {
 	 */
 	public String nextInQueue() {
 		// sort the queue in order of priority
-		sorted.displaySortedQueue(triageList);
+		triageList=sorted.displaySortedQueue(triageList);
 		// return the name of the first patient in the queue
 		if(triageList.size()>0){
-		return triageList.getFirst().getFirstName();
+		return (triageList.getFirst().getFirstName()+" "+triageList.getFirst().getLastName()) ;
 		}
 		else return "No patients waiting";
 	}// end of nextInQueue
@@ -417,32 +442,43 @@ public class TriageManager implements Serializable {
 	 */
 	public void processQue() throws InterruptedException {
 
-		// if there is space in bays and the triage list is not empty
-		if (Reception.bayManager.checkBays() && !triageList.isEmpty()) {
-
-			// assign the first person from triage to bays, removing them from
-			// triage
-			Reception.bayManager.assignBays(triageList.poll());
-			// otherwise process the patients current in bays
-		} else {
-			Reception.bayManager.processBaysQue();
-
-		}
-
-	}
-
-
-
-	public void sendToTriage() {
-		
+		boolean bayFree=false;
 		try {
-			patient=(Patient)HospitalBackup.readFromFile("nextPatient");
-			
+			bayFree = (boolean)HospitalBackup.readBoolean("bayFree");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// if there is space in bays and the triage list is not empty
+		if (bayFree && !triageList.isEmpty()) {
 
+			// assign the first person from triage to bays, removing them from
+			// triage
+			bayManager.assignBays(triageList.poll());
+			// otherwise process the patients current in bays
+			writeList();
+		} else {
+			bayManager.processBaysQue();
+
+		}
+
+	}
+	
+	public void readList(){
+		try {
+			triageList=(LinkedList<Patient>)HospitalBackup.readFromFile("triageList");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void writeList(){
+		try {
+			HospitalBackup.writeToFile(triageList, "triageList");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

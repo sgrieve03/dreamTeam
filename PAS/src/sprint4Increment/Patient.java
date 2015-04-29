@@ -322,7 +322,7 @@ public class Patient implements Serializable, Comparable<Patient> {
 
 	public void setWaitingTime() {
 		this.waitingTime = TimeHandler.differenceInTime(getTimeEnteredTriage(),
-				getTimeEnteredBays());
+				TimeHandler.now());
 	}
 
 	@Override

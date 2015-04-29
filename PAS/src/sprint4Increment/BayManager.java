@@ -1,5 +1,6 @@
 package sprint4Increment;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -30,21 +31,13 @@ public class BayManager implements Serializable {
 	 * triage if necessary
 	 */
 	QueueSorter sorter = new QueueSorter();
-	// DBConnection db = new DBConnection();
+	DBConnection db = new DBConnection();
 
 	/**
-	 * This is our list of patients currently in bays - static so that if multiple users 
-	 * are working 
+	 * This is our list of patients currently in bays - static so that if
+	 * multiple users are working
 	 */
 	public static LinkedList<Patient> patientListBays = new LinkedList<Patient>();
-
-	/**
-	 * this is to hold the current patient so that we can update their details
-	 * and process them through bays
-	 */
-	Patient patient;
-
-
 
 	/**
 	 * non-argument based constructor
@@ -64,40 +57,36 @@ public class BayManager implements Serializable {
 
 	public void treatPatient(Patient patient) throws InterruptedException {
 
-		// initialise the patient var that is accepted in the parenthesis
-		this.patient = patient;
-
 		// print lines are for testing and will be removed prior to release
 		System.out
 				.println("baylength in treatpatient" + patientListBays.size());
-		System.out.println(this.patient.getPatientID());
-		System.out.println(this.patient.getFirstName());
-		System.out.println(this.patient.getTimeEnteredTriage());
-		
-		System.out.println(this.patient.getTimeEnteredBays());
+		System.out.println(patient.getPatientID());
+		System.out.println(patient.getFirstName());
+		System.out.println(patient.getTimeEnteredTriage());
+		System.out.println(patient.getTimeEnteredBays());
 
 		// set the time the patient entered bays to the current time. Comparing
 		// this time
 		// with the time they entered triage will allow us to calculate their
 		// overall waiting time
-		this.patient.setTimeEnteredBays(TimeHandler.now());
+		patient.setTimeEnteredBays(TimeHandler.now());
 
 		// set the patients waiting time so that it can be sent out in the
 		// patient object
 		// to the database so that it can be used to calculate statistics about
 		// the
 		// Efficiencies within the ER
-		this.patient.setWaitingTime();
-		System.out.println(this.patient.getWaitingTime());
+		patient.setWaitingTime();
+		System.out.println(patient.getWaitingTime());
 		// Again printlns for testing and will be removed
-		System.out.println(this.patient.getFirstName() + " entered bay = "
+		System.out.println(patient.getFirstName() + " entered bay = "
 				+ patient.getTimeEnteredBays());
-		System.out.println(this.patient.getFirstName() + " waited "
-				+ (this.patient.getWaitingTime() + " minutes"));
+		System.out.println(patient.getFirstName() + " waited "
+				+ (patient.getWaitingTime() + " minutes"));
 
 		// set the length of time the patient will be in treatment (currently
 		// 10mins as per spec)
-		this.patient.setTreatmentTime();
+		patient.setTreatmentTime();
 
 		// set the time the patient should be discharged, this can be
 		// incremented by 5 mins
@@ -106,20 +95,19 @@ public class BayManager implements Serializable {
 		// class is used to change the string data/time var to ints so they can
 		// be mathmatically
 		// augmented, and then converts the result back to string.
-		this.patient.setTimeDischarged(TimeHandler.addTreatmentTime(
-				patient.getTimeEnteredBays(),
-				this.patient.getPatientTreatmentTime()));
+		patient.setTimeDischarged(TimeHandler.addTreatmentTime(
+				patient.getTimeEnteredBays(), patient.getPatientTreatmentTime()));
 
 		// more print tests
 		System.out.println("patient will be discharged at: "
-				+ this.patient.getTimeDischarged());
+				+ patient.getTimeDischarged());
 		System.out.println("Treatment will last: "
-				+ this.patient.getPatientTreatmentTime() + " minutes");
+				+ patient.getPatientTreatmentTime() + " minutes");
 		Thread.sleep(2000);
 		System.out
 				.println("BayLength in treatpatient" + patientListBays.size());
 
-	}//end treatPatient
+	}// end treatPatient
 
 	/**
 	 * this method checks through the linked list (patients in bays) and checks
@@ -142,30 +130,14 @@ public class BayManager implements Serializable {
 							+ " discharged");
 					// if it is remove the patient from bays and send them to
 					// the discharge method
-					this.dischargePatients(patientListBays.remove(i),
+					dischargePatients(patientListBays.remove(i),
 							Action.DISCHARGED);
 				}
 			}
 		}
+		writeList();
 
-	}//end processBayQueue
-
-	/**
-	 * getter for patientListBays
-	 * 
-	 * @return list of patients
-	 */
-	public LinkedList<Patient> getPatientListBays() {
-		return patientListBays;
-	}// end getPatients
-
-	/**
-	 * setter for patientListBays
-	 * @param patients
-	 */
-	public void setPatientListBays(LinkedList<Patient> patients) {
-		patientListBays = patients;
-	}
+	}// end processBayQueue
 
 	/**
 	 * A method that checks the bays.
@@ -173,16 +145,20 @@ public class BayManager implements Serializable {
 	 * @return boolean - true if there are free bays, false if all bays are
 	 *         filled.
 	 */
-	public boolean checkBays() {
+	public void checkBays() {
 		/*
 		 * There are 5 bays - so if the size of patientListBays is less than 5,
 		 * there must be an available bay.
 		 */
+		boolean bayFree = false;
+
 		if (patientListBays.size() < 5) {
-			return true;
+			bayFree = true;
 		} else {
-			return false;
+			bayFree = false;
 		}
+		HospitalBackup.writeBoolean(bayFree, "checkBays");
+		
 	}// end checkBays
 
 	/**
@@ -191,13 +167,13 @@ public class BayManager implements Serializable {
 	 * @param p
 	 * @throws InterruptedException
 	 */
-	public void assignBays(Patient patient)
-			throws InterruptedException {
+	public void assignBays(Patient patient) throws InterruptedException {
 		patient.setTimeEnteredBays(TimeHandler.now());
 		// take the patient from the parenthesis and add to bay
-		Reception.bayManager.getPatientListBays().add(patient);
+		patientListBays.add(patient);
 		// start treating this patient
-		this.treatPatient(patient);
+		treatPatient(patient);
+		writeList();
 
 	}// end assignBays
 
@@ -210,14 +186,24 @@ public class BayManager implements Serializable {
 	 * @param action
 	 */
 	public void dischargePatients(Patient patient, Action action) {
-		// db.insertPatientDB(patient);
 
 		// Assigning the patient to the baymanageradapter so they can be
 		// processed by the main hospital system
 		processedPatient = new BayManagerAdapter(patient, Action.DISCHARGED);
-
+		writeList();
 		// println for testing
-		System.out.println("BayLength end discharge" + patientListBays.size());
+		System.out.println("BayLength end discharge" + patientListBays.size()
+				+ patient.getFirstName());
 	}// end discharePatient
+
+	public void writeList() {
+		try {
+			HospitalBackup.writeToFile(patientListBays, "bayList");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 }// end BayManager

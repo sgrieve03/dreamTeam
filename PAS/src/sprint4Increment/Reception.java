@@ -1,6 +1,7 @@
 package sprint4Increment;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -11,7 +12,7 @@ import java.util.regex.Pattern;
  * @author laura
  *
  */
-public class Reception {
+public class Reception implements Serializable{
 	/**
 	 * create the linked list for the patients
 	 */
@@ -142,18 +143,18 @@ public class Reception {
 	* @param Reception reception
 	* @throws Exception
 	*/
-	public void sendToTriage(Patient patient, HospitalRunner runner) throws Exception {
+	public void sendToTriage(Patient patient, boolean save) throws Exception {
 		
-		this.hospitalRunner = runner;
+		boolean saved=save;
 		
-		
+		if(saved){
+		TriageManager.triageList=(LinkedList<Patient>)HospitalBackup.readFromFile("triageList");
+		BayManager.patientListBays=(LinkedList<Patient>)HospitalBackup.readFromFile(("patientListBays"));
+		}
 		if (triageManager.checkTriageList()) {
 			
 			HospitalBackup.writeToFile(patient, "nextPatient");
-			triageManager.sendToTriage();
 		}
-	System.out.println(patient.getPatientID());
-		HospitalBackup.writeToFile(runner, "Runner");
 		HospitalBackup.writeToFile(reception, "Reception");
 	}
 }

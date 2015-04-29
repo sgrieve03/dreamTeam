@@ -20,6 +20,7 @@ import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.text.SimpleDateFormat;
 
+import sprint4Increment.BayManager;
 import sprint4Increment.DBConnection;
 import sprint4Increment.HospitalBackup;
 import sprint4Increment.HospitalRunner;
@@ -196,6 +197,10 @@ public class ReceptionUKController implements Initializable {
 	@FXML
 	private TextArea textBayQueue;
 	
+	TriageManager triageManager = new TriageManager();
+	BayManager bayManager= new BayManager();
+	Reception reception = new Reception();
+	
 	
 
 	public ReceptionUKController() {
@@ -206,7 +211,7 @@ public class ReceptionUKController implements Initializable {
 	// This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
-		HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
+		HospitalBackup.writeBoolean(triageManager.triageAvailable, "triageAvailable");
 		
 			assert buttonSearchNHSNumber != null : "fx:id=\"buttonNHSNUmber\" was not injected: check your FXML file 'Reception.fxml'.";
 			assert buttonSearchFNLNPCDOB != null : "fx:id=\"buttonSearchFNLNPCDOB\" was not injected: check your FXML file 'Reception.fxml'.";
@@ -257,9 +262,11 @@ public class ReceptionUKController implements Initializable {
 			progressTriageList.setProgress(triageStatus);
 
 			buttonUpdateTriage.setOnAction(new EventHandler<ActionEvent>() {
-
+				
 				@Override
 				public void handle(ActionEvent event) {
+					
+					
 					ObservableList<Patient> triageReport = FXCollections
 							.observableArrayList();
 					for (Patient p : TriageManager.triageList) {
@@ -359,12 +366,7 @@ public class ReceptionUKController implements Initializable {
 							.getWindow();
 				nextPatient = dbConnection
 							.searchPatientByNHSNumber(textNHSNumber.getText());
-					try {
-						HospitalBackup.writeToFile(nextPatient, "nextPatient");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				writeNextPatient(nextPatient);
 					if (nextPatient.getNHSNumber() != null) {
 						setAll();
 					} else if (nextPatient.getNHSNumber() == null) {
@@ -404,25 +406,16 @@ public class ReceptionUKController implements Initializable {
 						public void handle(ActionEvent event) {
 						
 
-							try {
-								Reception.triageManager.triageAvailable=(boolean)HospitalBackup.readBoolean("triageAvailable");
-							} catch (IOException e2) {
-								// TODO Auto-generated catch block
-								e2.printStackTrace();
-							}
-							if (Reception.triageManager.triageAvailable) {
+						
+							if (triageManager.triageAvailable) {
 
-								Reception.triageManager.triageAvailable = false;
-								HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
+								triageManager.triageAvailable = false;
+								HospitalBackup.writeBoolean(triageManager.triageAvailable, "triageAvailable");
+								
+								patient=readPatient();
 								try {
-									patient=(Patient) HospitalBackup.readFromFile("nextPatient");
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-								try {
-									Reception.reception.sendToTriage(patient,
-											runner);
+									reception.sendToTriage(patient,true);
+									
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -469,7 +462,7 @@ public class ReceptionUKController implements Initializable {
 									.equalsIgnoreCase("m"))
 									|| (textGenderUnconscious.getText()
 											.equalsIgnoreCase("f"))) {
-								patient = Reception.reception
+								patient = reception
 										.createPatientUnconscious(textGenderUnconscious
 												.getText());
 							} else if ((!textGenderUnconscious.getText()
@@ -485,7 +478,7 @@ public class ReceptionUKController implements Initializable {
 
 							}
 
-							patient = Reception.reception
+							patient = reception
 									.createPatientUnconscious(textGenderUnconscious
 											.getText());
 
@@ -501,7 +494,26 @@ public class ReceptionUKController implements Initializable {
 	public static void setPatientList(LinkedList<Patient> patientList) {
 		ReceptionUKController.patientList = patientList;
 	}
-
+	
+	public Patient readPatient(){
+		try {
+			patient=(Patient) HospitalBackup.readFromFile("nextPatient");
+			System.out.println("nextPatient file reads "+patient.getFirstName());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}return patient;
+	}
+	public void writeNextPatient(Patient patient){
+		nextPatient=patient;
+		try {
+			HospitalBackup.writeToFile(nextPatient, "nextPatient");
+			System.out.println("patient from database "+nextPatient.getFirstName()+" saved in nextPatient");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void clearAll() {
 
 		textFirstName.clear();

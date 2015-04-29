@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import sprint4Increment.BayManager;
 import sprint4Increment.HospitalBackup;
 import sprint4Increment.Patient;
 import sprint4Increment.Reception;
@@ -126,6 +127,9 @@ public class TriageController implements Initializable {
 	private Button buttonSwitchUser;
 	
 	Patient nextPatient = new Patient();
+	BayManager bayManager = new BayManager();
+	Reception reception = new Reception();
+	TriageManager triageManager = new TriageManager();
 
 	@Override
 	// This method is called by the FXMLLoader when initialization is complete
@@ -140,18 +144,7 @@ public class TriageController implements Initializable {
 
 		// set up the patient choicebox populated by Reception
 		ArrayList<String> idList = new ArrayList<String>();
-		idList.add(0, "Choose a Patient");
 		
-			
-		triageAvailable = false;
-		try {
-			HospitalBackup.writeToFile(triageAvailable, "triageAvailable");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		choiceTriageList.setItems(FXCollections.observableArrayList(idList));
-		choiceTriageList.getSelectionModel().select(0);
 
 		// bind patient choice to a text field
 		textPatient.textProperty().bind(
@@ -208,7 +201,7 @@ public class TriageController implements Initializable {
 		
 			
 				try {
-					Reception.triageManager.patientHandler();
+					triageManager.patientHandler();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -254,6 +247,7 @@ public class TriageController implements Initializable {
 				patient.setAdditionalNotes(textNotes.getText());
 				
 				try {
+					System.out.println("patientReception"+patient.getFirstName());
 					HospitalBackup.writeToFile(patient, "patientReception");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -262,13 +256,17 @@ public class TriageController implements Initializable {
 				
 				
 				
-				Reception.triageManager.triageAvailable=true;
+				triageManager.triageAvailable=true;
+				System.out.println(triageAvailable);
 				
-				HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
+				HospitalBackup.writeBoolean(triageManager.triageAvailable, "triageAvailable");
 				
-				
+				idList.clear();
+				choiceTriageList.setItems(FXCollections.observableArrayList(idList));
+				choiceTriageList.getSelectionModel().select(0);	
 
 			}
+			
 		});
 		
 		
@@ -324,26 +322,31 @@ public class TriageController implements Initializable {
 				
 				try{
 					patient=(Patient)HospitalBackup.readFromFile("patientReception");
+					System.out.println("patient"+patient.getFirstName());
 					nextPatient=(Patient)HospitalBackup.readFromFile("nextPatient");
+					System.out.println("nextpatient"+nextPatient.getFirstName());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 			
-				
+						
 				//if there is a new patient in reception display their name otherwise remove the processed patients name
 				if(!nextPatient.getNHSNumber().equals(patient.getNHSNumber())){
+					idList.clear();
+					idList.add(0, "Select Patient");
 					idList.add(nextPatient.getFirstName());
-				idList.remove(String.valueOf(patient.getFirstName()));
+				}
+				else
+				{
+					idList.add("No Patients");
+				}
+				
 				choiceTriageList.setItems(FXCollections.observableArrayList(idList));
 				choiceTriageList.getSelectionModel().select(0);	
 				HospitalBackup.writeToFile(nextPatient, "patientReception");
-				}
-				else
-					idList.remove(String.valueOf(patient.getFirstName()));
-				choiceTriageList.setItems(FXCollections.observableArrayList(idList));
-				choiceTriageList.getSelectionModel().select(0);	
+				System.out.println("End button update "+nextPatient.getFirstName() );
 				
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
