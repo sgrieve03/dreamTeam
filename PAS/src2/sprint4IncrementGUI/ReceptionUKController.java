@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import java.text.SimpleDateFormat;
 
 import sprint4Increment.DBConnection;
+import sprint4Increment.HospitalBackup;
 import sprint4Increment.HospitalRunner;
 import sprint4Increment.Patient;
 import sprint4Increment.Reception;
@@ -193,6 +194,8 @@ public class ReceptionUKController implements Initializable {
 
 	@FXML
 	private TextArea textBayQueue;
+	
+	
 
 	public ReceptionUKController() {
 
@@ -202,6 +205,7 @@ public class ReceptionUKController implements Initializable {
 	// This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 
+		HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
 		
 			assert buttonSearchNHSNumber != null : "fx:id=\"buttonNHSNUmber\" was not injected: check your FXML file 'Reception.fxml'.";
 			assert buttonSearchFNLNPCDOB != null : "fx:id=\"buttonSearchFNLNPCDOB\" was not injected: check your FXML file 'Reception.fxml'.";
@@ -391,10 +395,19 @@ public class ReceptionUKController implements Initializable {
 
 						@Override
 						public void handle(ActionEvent event) {
+						
 
-							if (TriageController.triageAvailable) {
+							try {
+								Reception.triageManager.triageAvailable=(boolean)HospitalBackup.readBoolean("triageAvailable");
+							} catch (IOException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+							if (Reception.triageManager.triageAvailable) {
 
-								TriageController.triageAvailable = false;
+								Reception.triageManager.triageAvailable = false;
+								HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
+								
 								try {
 									Reception.reception.sendToTriage(patient,
 											runner);

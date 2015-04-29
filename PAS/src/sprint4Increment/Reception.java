@@ -1,5 +1,6 @@
 package sprint4Increment;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -34,7 +35,7 @@ public class Reception {
 	
 	DBConnection db = new DBConnection();
 	
-	public static Reception reception;
+	public static Reception reception=new Reception();
 	
 	HospitalRunner hospitalRunner;
 	
@@ -145,10 +146,13 @@ public class Reception {
 		
 		this.hospitalRunner = runner;
 		
+		
 		if (triageManager.checkTriageList()) {
+			
+			HospitalBackup.writeToFile(patient, "patientReception");
+			
 	
-	
-		triageManager.visitTriageNurse(patient);
+			triageManager.visitTriageNurse();
 		}
 	System.out.println(patient.getPatientID());
 		HospitalBackup.writeToFile(runner, "Runner");

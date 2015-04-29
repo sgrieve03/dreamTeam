@@ -61,7 +61,6 @@ public class TriageController implements Initializable {
 
 	ChangeListener<? super String> choiceCategorySelectionChangeListener;
 
-	private TriageManager tM;
 	
 	public static boolean triageAvailable = true;
 
@@ -141,12 +140,23 @@ public class TriageController implements Initializable {
 		ArrayList<String> idList = new ArrayList<String>();
 		idList.add(0, "Choose a Patient");
 		
-		this.patient=Reception.triageManager.getNextPatient();
+		try {
+			this.patient=(Patient)HospitalBackup.readFromFile("patientReception");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		 
 		idList.add(String.valueOf(patient.getFirstName()));
 		
 			
 		triageAvailable = false;
+		try {
+			HospitalBackup.writeToFile(triageAvailable, "triageAvailable");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		choiceTriageList.setItems(FXCollections.observableArrayList(idList));
 		choiceTriageList.getSelectionModel().select(0);
 
@@ -202,13 +212,15 @@ public class TriageController implements Initializable {
 			public void handle(ActionEvent event) {
 				
 				try {
-					Reception.triageManager.patientHandler(patient);
+					Reception.triageManager.patientHandler();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				Reception.triageManager.triageAvailable=true;
 				
-				triageAvailable=true;
+				HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
+				
 				//if there is a new patient in reception display their name otherwise remove the processed patients name
 				if(!Reception.triageManager.getNextPatient().equals(patient)){
 					idList.add(Reception.triageManager.getNextPatient().getFirstName());

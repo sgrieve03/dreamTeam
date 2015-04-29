@@ -3,6 +3,7 @@
  */
 package sprint4Increment;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,7 +73,7 @@ public class TriageManager implements Serializable {
 	 * object of type patient used to store the current patient coming into
 	 * triage
 	 */
-	private Patient patient;
+	private Patient patient=new Patient();
 	/**
 	 * used to determine is oncall have been called
 	 */
@@ -100,6 +101,8 @@ public class TriageManager implements Serializable {
 	 * staff
 	 */
 	CommunicationAdapter com;
+	
+	public boolean triageAvailable=true;
 	
 	public TriageManager(){};
 	
@@ -135,13 +138,18 @@ public class TriageManager implements Serializable {
 	}// end check triageList
 	
 	/**
-	 * This moves the patient into the triage class so ity can be handled
+	 * This moves the patient into the triage class so it can be handled
 	 * 
 	 * @param patient
 	 */
-	public void visitTriageNurse(Patient patient ) {
+	public void visitTriageNurse( ) {
 		
-	this.patient=patient;
+	try {
+		this.patient=(Patient)HospitalBackup.readFromFile("patientReception");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	
 			
 	}// end visit triage nurse
@@ -154,10 +162,10 @@ public class TriageManager implements Serializable {
 	 * @param triage
 	 * @throws Exception
 	 */
-	public boolean patientHandler(Patient patient) throws Exception {
+	public boolean patientHandler() throws Exception {
 
 		// set the patients waiting time to now
-				patient.setTimeEnteredTriage(TimeHandler.now());
+		patient.setTimeEnteredTriage(TimeHandler.now());
 				
 		boolean patientHandled = false;
 		
@@ -173,11 +181,11 @@ public class TriageManager implements Serializable {
 		// check if patient is emergency, if so and there is a non emergency in
 		// bays swap them round
 		((!Reception.bayManager.checkBays()) && (swappable(patient))
-				&& (patient.getCategory() == 0)) {
+				&& (patient.getCategory() == EMERGENCY)) {
 			// do the swap
 			onCallIn = false;
 			onCallCalled = false;
-			swap(Reception.bayManager.getPatientListBays().removeLast(), patient);
+			swap(BayManager.patientListBays.removeLast(), patient);
 			patientHandled=true;
 		}
 
@@ -199,7 +207,7 @@ public class TriageManager implements Serializable {
 			// send the first person in the list to oncall
 			OnCallTreatPatient();
 			// else if oncall are busy
-		} else if (onCallBusy && triageList.getFirst().getCategory() == 0) {
+		} else if (onCallBusy && triageList.getFirst().getCategory() == EMERGENCY) {
 			// send an alert to the manager to let them know the oncall team can
 			// not treat an emergency patient
 
@@ -277,7 +285,7 @@ public class TriageManager implements Serializable {
 	public void placeInQueue(Patient patient) {
 		
 		// add this patient to this list
-		Reception.triageManager.getTriageList().add(patient);
+		triageList.add(patient);
 		
 		// sort the queue on catagory first and if the waiting time is greater
 		// than 25mins bump to from of queue
@@ -349,7 +357,7 @@ public class TriageManager implements Serializable {
 		sorted.displaySortedQueue(Reception.bayManager.getPatientListBays());
 		// if bays are full and the lowest priority patient is not high priority
 		// and this patient is high priority
-		if (Reception.bayManager.getPatientListBays().getLast().getCategory() > 0) {
+		if (Reception.bayManager.getPatientListBays().getLast().getCategory() > EMERGENCY) {
 			// they can be swapped
 			swap = true;
 			onCallCalled = false;
@@ -376,28 +384,6 @@ public class TriageManager implements Serializable {
 		// set oncallcalled to true
 		onCallCalled = true;
 	}
-
-	/**
-	 * @return the triageList
-	 */
-	public LinkedList<Patient> getTriageList() {
-		return triageList;
-	}
-
-	/**
-	 * setter for the triage list
-	 * 
-	 * @param readFromFile
-	 */
-	public void setTriageList(LinkedList<Patient> readFromFile) {
-		triageList = readFromFile;
-	}
-
-
-
-
-
-
 	/**
 	 * This method is used to add a patient to the triage list when they come
 	 * from bays
@@ -406,7 +392,7 @@ public class TriageManager implements Serializable {
 	 */
 	public void addFromBays(Patient patient) {
 		// get the triage list and add the patient
-		Reception.triageManager.getTriageList().addLast(patient);
+		triageList.addLast(patient);
 		// for all the patients in the list update their waiting times
 		
 		for (int i=0; i<triageList.size(); i++){
