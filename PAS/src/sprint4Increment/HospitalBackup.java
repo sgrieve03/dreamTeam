@@ -145,7 +145,7 @@ public class HospitalBackup {
 	 try
 	    {
 	      //create FileOutputStream object
-	      FileInputStream fis = new FileInputStream(name);
+	      FileInputStream fis = new FileInputStream("HospitalLog.temp"+name);
 	     
 	      /*
 	       * To create DataOutputStream object from FileOutputStream use,

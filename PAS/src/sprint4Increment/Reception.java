@@ -149,10 +149,8 @@ public class Reception {
 		
 		if (triageManager.checkTriageList()) {
 			
-			HospitalBackup.writeToFile(patient, "patientReception");
-			
-	
-			triageManager.visitTriageNurse();
+			HospitalBackup.writeToFile(patient, "nextPatient");
+			triageManager.sendToTriage();
 		}
 	System.out.println(patient.getPatientID());
 		HospitalBackup.writeToFile(runner, "Runner");

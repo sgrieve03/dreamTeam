@@ -89,7 +89,7 @@
             <Insets bottom="350.0" left="100.0" top="180.0" />
          </StackPane.margin>
       </ChoiceBox>
-      <Button fx:id="buttonUpdatePatient" mnemonicParsing="false" text="Update Patient" StackPane.alignment="CENTER_LEFT">
+      <Button fx:id="buttonUpdatePatient" mnemonicParsing="false" text="Get Next Patient" StackPane.alignment="CENTER_LEFT">
          <StackPane.margin>
             <Insets bottom="290.0" left="270.0" top="680.0" />
          </StackPane.margin>

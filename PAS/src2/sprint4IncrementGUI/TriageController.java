@@ -124,6 +124,8 @@ public class TriageController implements Initializable {
 	 */
 	@FXML
 	private Button buttonSwitchUser;
+	
+	Patient nextPatient = new Patient();
 
 	@Override
 	// This method is called by the FXMLLoader when initialization is complete
@@ -139,15 +141,6 @@ public class TriageController implements Initializable {
 		// set up the patient choicebox populated by Reception
 		ArrayList<String> idList = new ArrayList<String>();
 		idList.add(0, "Choose a Patient");
-		
-		try {
-			this.patient=(Patient)HospitalBackup.readFromFile("patientReception");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		 
-		idList.add(String.valueOf(patient.getFirstName()));
 		
 			
 		triageAvailable = false;
@@ -211,23 +204,17 @@ public class TriageController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				
+			
+		
+			
 				try {
 					Reception.triageManager.patientHandler();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Reception.triageManager.triageAvailable=true;
 				
-				HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
 				
-				//if there is a new patient in reception display their name otherwise remove the processed patients name
-				if(!Reception.triageManager.getNextPatient().equals(patient)){
-					idList.add(Reception.triageManager.getNextPatient().getFirstName());
-				}
-				idList.remove(String.valueOf(patient.getFirstName()));
-				choiceTriageList.setItems(FXCollections.observableArrayList(idList));
-				choiceTriageList.getSelectionModel().select(0);	
 				
 				ObservableList<Patient> triageReport = FXCollections
 						.observableArrayList();
@@ -258,6 +245,28 @@ public class TriageController implements Initializable {
 				choiceTriageList.getSelectionModel().select(0);
 				choiceCategory.getSelectionModel().select(0);
 				clearAll();
+			
+				
+				patient.setCategory(textCategory.getText());
+				//patient.setDateOfAccident(textDateOfAcc.getText());
+				//patient.setTimeOfAccident(textDateOfAcc.getText());
+				patient.setSymptoms(textSymptoms.getText());
+				patient.setAdditionalNotes(textNotes.getText());
+				
+				try {
+					HospitalBackup.writeToFile(patient, "patientReception");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				Reception.triageManager.triageAvailable=true;
+				
+				HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
+				
+				
 
 			}
 		});
@@ -274,6 +283,9 @@ public class TriageController implements Initializable {
 							Number oldValue, Number newValue) {
 					}
 				});
+	
+		
+		
 		// choice box event handler
 		choiceCategory.getSelectionModel().selectedIndexProperty()
 				.addListener(new ChangeListener<Number>() {
@@ -310,20 +322,39 @@ public class TriageController implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				
-				
-				patient.setCategory(textCategory.getText());
-				//patient.setDateOfAccident(textDateOfAcc.getText());
-				//patient.setTimeOfAccident(textDateOfAcc.getText());
-				patient.setSymptoms(textSymptoms.getText());
-				patient.setAdditionalNotes(textNotes.getText());
-				
+				try{
+					patient=(Patient)HospitalBackup.readFromFile("patientReception");
+					nextPatient=(Patient)HospitalBackup.readFromFile("nextPatient");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
 			
 				
+				//if there is a new patient in reception display their name otherwise remove the processed patients name
+				if(!nextPatient.getNHSNumber().equals(patient.getNHSNumber())){
+					idList.add(nextPatient.getFirstName());
+				idList.remove(String.valueOf(patient.getFirstName()));
+				choiceTriageList.setItems(FXCollections.observableArrayList(idList));
+				choiceTriageList.getSelectionModel().select(0);	
+				HospitalBackup.writeToFile(nextPatient, "patientReception");
+				}
+				else
+					idList.remove(String.valueOf(patient.getFirstName()));
+				choiceTriageList.setItems(FXCollections.observableArrayList(idList));
+				choiceTriageList.getSelectionModel().select(0);	
+				
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{}
+				
 
+			
+
+		}});
 			}
-
-		});
-	}
 public void clearAll(){
 
 	textCategory.clear();

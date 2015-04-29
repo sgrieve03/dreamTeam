@@ -1,12 +1,13 @@
 package sprint4Increment;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class Patient implements Comparable<Patient> {
+public class Patient implements Serializable, Comparable<Patient> {
 	
 	String natureOfAccident;
 	

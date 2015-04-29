@@ -85,6 +85,7 @@ public class ReceptionUKController implements Initializable {
 	 * patient entering system from reception
 	 */
 	public static Patient patient;
+	public static Patient nextPatient;
 	/**
 	 * linked list of patients added to from GUI and sent to Reception class
 	 */
@@ -334,14 +335,14 @@ public class ReceptionUKController implements Initializable {
 				public void handle(ActionEvent event) {
 					Stage stage0 = (Stage) buttonSearchFNLNPCDOB.getScene()
 							.getWindow();
-					patient = dbConnection
+					nextPatient = dbConnection
 							.searchPatientByFirstNameSurnamePostCodeDOB(
 									textFirstName.getText(),
 									textLastName.getText(),
 									textPostCode.getText(), textDOB.getText());
-					if (patient.getNHSNumber() != null) {
+					if (nextPatient.getNHSNumber() != null) {
 						setAll();
-					} else if (patient.getNHSNumber() == null) {
+					} else if (nextPatient.getNHSNumber() == null) {
 						MessageBox.show(stage0, "Patient not found",
 								"Try again.", MessageBox.ICON_INFORMATION
 										| MessageBox.OK);
@@ -356,11 +357,17 @@ public class ReceptionUKController implements Initializable {
 				public void handle(ActionEvent event) {
 					Stage stage0 = (Stage) buttonSearchNHSNumber.getScene()
 							.getWindow();
-					patient = dbConnection
+				nextPatient = dbConnection
 							.searchPatientByNHSNumber(textNHSNumber.getText());
-					if (patient.getNHSNumber() != null) {
+					try {
+						HospitalBackup.writeToFile(nextPatient, "nextPatient");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (nextPatient.getNHSNumber() != null) {
 						setAll();
-					} else if (patient.getNHSNumber() == null) {
+					} else if (nextPatient.getNHSNumber() == null) {
 						MessageBox.show(stage0, "Patient not found",
 								"Try again.", MessageBox.ICON_INFORMATION
 										| MessageBox.OK);
@@ -407,7 +414,12 @@ public class ReceptionUKController implements Initializable {
 
 								Reception.triageManager.triageAvailable = false;
 								HospitalBackup.writeBoolean(Reception.triageManager.triageAvailable, "triageAvailable");
-								
+								try {
+									patient=(Patient) HospitalBackup.readFromFile("nextPatient");
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 								try {
 									Reception.reception.sendToTriage(patient,
 											runner);
@@ -506,17 +518,17 @@ public class ReceptionUKController implements Initializable {
 	}
 
 	public void setAll() {
-		textFirstName.setText(patient.getFirstName());
-		textLastName.setText(patient.getLastName());
-		textPostCode.setText(patient.getPostCode());
-		textGender.setText(String.valueOf(patient.getGender()));
-		textAllergies.setText(patient.getAllergies());
-		textBloodGroup.setText(patient.getBloodGroup());
-		textTelephone.setText(patient.getTelephone());
-		textTitle.setText(patient.getTitle());
-		textExistingCon.setText(patient.getExistingConditions());
-		textDOB.setText(patient.getDateOfBirth());
-		textPatientID.setText(String.valueOf(patient.getPatientID()));
+		textFirstName.setText(nextPatient.getFirstName());
+		textLastName.setText(nextPatient.getLastName());
+		textPostCode.setText(nextPatient.getPostCode());
+		textGender.setText(String.valueOf(nextPatient.getGender()));
+		textAllergies.setText(nextPatient.getAllergies());
+		textBloodGroup.setText(nextPatient.getBloodGroup());
+		textTelephone.setText(nextPatient.getTelephone());
+		textTitle.setText(nextPatient.getTitle());
+		textExistingCon.setText(nextPatient.getExistingConditions());
+		textDOB.setText(nextPatient.getDateOfBirth());
+		textPatientID.setText(String.valueOf(nextPatient.getPatientID()));
 	}
 
 	private void setBarStyleClass(ProgressBar bar, String barStyleClass) {

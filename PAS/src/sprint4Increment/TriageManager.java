@@ -144,12 +144,7 @@ public class TriageManager implements Serializable {
 	 */
 	public void visitTriageNurse( ) {
 		
-	try {
-		this.patient=(Patient)HospitalBackup.readFromFile("patientReception");
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	
 	
 			
 	}// end visit triage nurse
@@ -163,7 +158,8 @@ public class TriageManager implements Serializable {
 	 * @throws Exception
 	 */
 	public boolean patientHandler() throws Exception {
-
+		
+		patient=(Patient)HospitalBackup.readFromFile("patientReception");
 		// set the patients waiting time to now
 		patient.setTimeEnteredTriage(TimeHandler.now());
 				
@@ -293,13 +289,7 @@ public class TriageManager implements Serializable {
 
 	}
 
-	/**
-	 * return patient sent from reception
-	 */
-	
-	public Patient getNextPatient(){
-		return Reception.triageManager.patient;
-	}
+
 
 
 	/**
@@ -368,7 +358,7 @@ public class TriageManager implements Serializable {
 			// set the time on call where called to now
 			setOncallTimeCalled(0, TimeHandler.now());
 		}
-		// return true or false depending on if swappable or not
+		// return true or false depending on if swappable or no
 		return swap;
 	}
 
@@ -439,6 +429,21 @@ public class TriageManager implements Serializable {
 
 		}
 
+	}
+
+
+
+	public void sendToTriage() {
+		
+		try {
+			patient=(Patient)HospitalBackup.readFromFile("nextPatient");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 
 }
