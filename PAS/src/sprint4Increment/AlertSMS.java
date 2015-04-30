@@ -27,7 +27,7 @@ import javax.mail.internet.*;
 		/**
 		 * This is a private password used to access the above account - my actual email needs to be substituted
 		 */
-		private final String PASSWORD = "shauna's password";
+		private final String PASSWORD = "Uls13210902";
 		/**
 		 * This is the host address from which the text will be sent
 		 */

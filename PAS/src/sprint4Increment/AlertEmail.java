@@ -26,7 +26,7 @@ public class AlertEmail extends Communication{
 	/**
 	 * final String for the admin password - my actual password needs to be substituted
 	 */
-	private final String PASSWORD = "shauna's password";
+	private final String PASSWORD = "ulS13210902";
 	/**
 	 * final String for the address of the admin account
 	 */

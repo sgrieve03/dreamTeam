@@ -41,6 +41,7 @@ public class Reception implements Serializable{
 	HospitalRunner hospitalRunner;
 	
 	QueueSorter sort = new QueueSorter();
+	StaffAdapter com;
 	
 	/**
 	 * default constructor
@@ -154,6 +155,9 @@ public class Reception implements Serializable{
 		if (triageManager.checkTriageList()) {
 			
 			HospitalBackup.writeToFile(patient, "nextPatient");
+		}
+		else{
+			com= new StaffAdapter(Alert.TRIAGEFULL);
 		}
 		HospitalBackup.writeToFile(reception, "Reception");
 	}

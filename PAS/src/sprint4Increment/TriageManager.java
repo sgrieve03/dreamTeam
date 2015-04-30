@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author laura Triage Manager class which will implement: alertEmail,
  *         AlertSMS, UpdateTime, SearchQueue, AdjustQueue interfaces
@@ -107,7 +109,7 @@ public class TriageManager implements Serializable {
 	 * used to create alert emails and sms's and send them to the appropriate
 	 * staff
 	 */
-	CommunicationAdapter com;
+	StaffAdapter com;
 	
 	public boolean triageAvailable=true;
 	
@@ -225,12 +227,17 @@ public class TriageManager implements Serializable {
 			// send an alert to the manager to let them know the oncall team can
 			// not treat an emergency patient
 
-			// com = new CommunicationAdapter(Alert.ONCALLPREOCCUPIED);
+			com = new StaffAdapter(Alert.ONCALLPREOCCUPIED);
+			
+			triageAvailable=false;
+			HospitalBackup.writeBoolean(triageAvailable, "triageAvailable");
+			
+			
 
 		}
 		if (onCallBusy) {
 			triageManager.dischargeViaOncall();
-			System.out.println("Patient discharged via oncall");
+			System.out.println("Patient via oncall");
 		}
 
 		
@@ -242,7 +249,10 @@ public class TriageManager implements Serializable {
 			triageQueue.put(p.getPatientID(), p.getPatientTreatmentTime());
 		}
 		writeList();
-		
+		if(!triageAvailable){
+			triageAvailable=HospitalBackup.readBoolean("triageAvailable");
+			JOptionPane.showConfirmDialog(null, "No emergencies accepted, redirect to nearest hospital");
+		}
 	
 
 	}
@@ -292,6 +302,8 @@ public class TriageManager implements Serializable {
 			System.out.println("Patient discharged");
 			// set oncall busy to false as they are now free to treat another
 			// patient
+			triageAvailable=true;
+			HospitalBackup.writeBoolean(triageAvailable, "triageAvailable");
 			onCallBusy = false;
 		}
 	}
@@ -393,9 +405,9 @@ public class TriageManager implements Serializable {
 	 * @throws Exception
 	 */
 	public void alertBaysFullOfEmergencies() throws Exception {
-		// instantiate the communication adapter object, and pass in the alert
+		// instantiate the staff adapter object, and pass in the alert
 		// that is required
-		// com = new CommunicationAdapter(Alert.BAYSFULL);
+		com = new StaffAdapter(Alert.BAYSFULL);
 		// set oncallcalled to true
 		onCallCalled = true;
 	}

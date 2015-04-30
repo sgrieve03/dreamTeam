@@ -34,7 +34,7 @@ public class StaffManagementSystem {
 	}
 
 	public void setOncall() {
-		 // oncall.add("7515489280");
+		 oncall.add("7515489280");
 		//oncall.add("7511404512");
 		//oncall.add("7544110910");
 		//oncall.add("7450225287");
@@ -55,7 +55,7 @@ public class StaffManagementSystem {
 	}
 
 	public void setManagerNumber() {
-		//managerNumber.add("7515489280");
+		managerNumber.add("7515489280");
 	}
 
 
