@@ -13,7 +13,7 @@
    <children>
       <Button fx:id="buttonDischarge" mnemonicParsing="false" text="Discharge Patient" StackPane.alignment="BOTTOM_CENTER">
          <StackPane.margin>
-            <Insets bottom="140.0" />
+            <Insets bottom="60.0" />
          </StackPane.margin></Button>
       <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleY="1.5" StackPane.alignment="TOP_LEFT">
          <image>
@@ -145,95 +145,40 @@
             <Insets top="60.0" />
          </StackPane.margin>
       </Button>
-   </children>
-</StackPane>
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.chart.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-
-<StackPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sprint4IncrementGUI.TreatmentController">
-   <children>
-      <Button fx:id="treatmentButton" mnemonicParsing="false" text="Discharge Patient" StackPane.alignment="BOTTOM_RIGHT">
+      <TextField fx:id="textBay1" alignment="CENTER" maxHeight="30.0" maxWidth="80.0" minHeight="30.0" minWidth="80.0" prefHeight="30.0" prefWidth="80.0" promptText="Bay 1" StackPane.alignment="CENTER_RIGHT">
          <StackPane.margin>
-            <Insets bottom="10.0" right="10.0" />
-         </StackPane.margin></Button>
-      <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
-         <image>
-            <Image url="@NHS-RGB.jpg" />
-         </image>
-      </ImageView>
-      <Label text="PAS JAVA" StackPane.alignment="TOP_CENTER">
-         <font>
-            <Font name="System Bold Italic" size="35.0" />
-         </font>
-         <StackPane.margin>
-            <Insets right="300.0" />
-         </StackPane.margin>
-      </Label>
-      <Label text="BAYS" StackPane.alignment="TOP_RIGHT">
-         <StackPane.margin>
-            <Insets right="225.0" top="100.0" />
-         </StackPane.margin>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Button fx:id="buttonLogOut" mnemonicParsing="false" prefWidth="78.0" text="Log Out" StackPane.alignment="TOP_RIGHT">
-         <StackPane.margin>
-            <Insets right="5.0" top="35.0" />
-         </StackPane.margin>
-      </Button>
-      <Button fx:id="buttonSwitchUser" mnemonicParsing="false" text="Switch User" StackPane.alignment="TOP_RIGHT">
-         <StackPane.margin>
-            <Insets right="5.0" top="5.0" />
-         </StackPane.margin>
-      </Button>
-      <Label text="Next from Triage" StackPane.alignment="BOTTOM_LEFT">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <padding>
-            <Insets bottom="80.0" left="30.0" />
-         </padding>
-      </Label>
-      <TextField fx:id="nextFromTriage" maxWidth="200.0" StackPane.alignment="BOTTOM_LEFT">
-         <StackPane.margin>
-            <Insets bottom="30.0" left="30.0" />
+            <Insets right="160.0" top="30.0" />
          </StackPane.margin>
       </TextField>
-      <Label text="Bay List" StackPane.alignment="CENTER_RIGHT">
-         <font>
-            <Font size="20.0" />
-         </font>
+      <TextField fx:id="textBay2" alignment="CENTER" maxHeight="30.0" maxWidth="80.0" minHeight="30.0" minWidth="80.0" prefHeight="30.0" prefWidth="80.0" promptText="Bay 2" StackPane.alignment="CENTER_RIGHT">
          <StackPane.margin>
-            <Insets bottom="100.0" right="10.0" />
+            <Insets right="40.0" top="30.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textBay3" alignment="CENTER" maxHeight="30.0" maxWidth="80.0" minHeight="30.0" minWidth="80.0" prefHeight="30.0" prefWidth="80.0" promptText="Bay 3" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets right="160.0" top="110.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textBay4" alignment="CENTER" maxHeight="30.0" maxWidth="80.0" minHeight="30.0" minWidth="80.0" prefHeight="30.0" prefWidth="80.0" promptText="Bay 4" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets right="40.0" top="110.0" />
+         </StackPane.margin>
+      </TextField>
+      <TextField fx:id="textBay5" alignment="CENTER" maxHeight="30.0" maxWidth="80.0" minHeight="30.0" minWidth="80.0" prefHeight="30.0" prefWidth="80.0" promptText="Bay 5" StackPane.alignment="CENTER_RIGHT">
+         <StackPane.margin>
+            <Insets right="105.0" top="190.0" />
+         </StackPane.margin>
+      </TextField>
+      <ChoiceBox fx:id="choiceAction" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" StackPane.alignment="CENTER">
+         <StackPane.margin>
+            <Insets left="100.0" top="240.0" />
+         </StackPane.margin>
+      </ChoiceBox>
+      <Label text="Discharge Action" StackPane.alignment="CENTER_LEFT">
+         <StackPane.margin>
+            <Insets left="270.0" top="240.0" />
          </StackPane.margin>
       </Label>
-       <TableView fx:id="tableBayQueue" maxHeight="0.0" maxWidth="0.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="262.0" StackPane.alignment="TOP_RIGHT">
-         <columns>
-            <TableColumn minWidth="75.0" prefWidth="75.0" text="C1" />
-            <TableColumn minWidth="75.0" prefWidth="75.0" text="C2" />
-         </columns>
-         <StackPane.margin>
-            <Insets bottom="140.0" right="10.0" top="130.0" />
-         </StackPane.margin>
-      </TableView>
-      <Button fx:id="treatmentButton1" mnemonicParsing="false" text="Extend Treatment" StackPane.alignment="BOTTOM_RIGHT">
-         <StackPane.margin>
-            <Insets bottom="10.0" right="130.0" />
-         </StackPane.margin>
-      </Button>
-      <TextArea fx:id="treatmentOutput" maxHeight="250.0" maxWidth="200.0" minHeight="-Infinity" minWidth="200.0" prefHeight="150.0" prefWidth="300.0" StackPane.alignment="BOTTOM_LEFT">
-         <StackPane.margin>
-            <Insets bottom="120.0" left="30.0" />
-         </StackPane.margin></TextArea>
    </children>
 </StackPane>

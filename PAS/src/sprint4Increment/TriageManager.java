@@ -281,7 +281,9 @@ public class TriageManager implements Serializable {
 	
 	
 	
-	
+	public Patient getNextPatient(){
+	return triageList.getFirst();
+	}
 	
 
 	

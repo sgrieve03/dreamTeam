@@ -125,9 +125,9 @@ public class BayManager implements Serializable {
 			// move through the patients in bay
 			for (int i = 0; i < patientListBays.size(); i++) {
 				// check if their discharge time is now
-				TimeHandler.minutesTotal((TimeHandler.differenceInTime(patientListBays.get(i).getTimeDischarged(), TimeHandler.now())));
+				
 				if (patientListBays.get(i).getTimeDischarged()
-						.equals(TimeHandler.now())||)<0) {
+						.equals(TimeHandler.now())) {
 					System.out.println(patientListBays.get(i).getFirstName()
 							+ " discharged");
 					// if it is remove the patient from bays and send them to
@@ -207,5 +207,6 @@ public class BayManager implements Serializable {
 		}
 
 	}
+	
 
 }// end BayManager
