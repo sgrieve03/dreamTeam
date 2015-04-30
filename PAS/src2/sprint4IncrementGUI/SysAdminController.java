@@ -49,15 +49,6 @@ public class SysAdminController implements Initializable {
 	private Button buttonInitialisePAS;
 
 	@FXML
-	private ChoiceBox<String> choiceMetrics;
-
-	@FXML
-	private ChoiceBox<String> choiceEvent;
-
-	@FXML
-	private ChoiceBox<String> choiceSystemLog;
-
-	@FXML
 	private TextArea textTriageQueue;
 
 	@FXML
@@ -80,22 +71,7 @@ public class SysAdminController implements Initializable {
 		// initialize your logic here: all @FXML variables will have been
 		// injected
 
-		/*
-		 * Set<String> idList = new HashSet<String>(); for (Patient p :
-		 * tM.triageList) { idList.add(String.valueOf(p.getPatientID())); }
-		 */
-		choiceSystemLog.setItems(FXCollections.observableArrayList("Volume",
-				"Database", "Admin"));
-		choiceSystemLog.getSelectionModel().select(0);
-
-		choiceEvent.setItems(FXCollections.observableArrayList("Exceptions",
-				"Usage", "Alerts"));
-		choiceEvent.getSelectionModel().select(0);
-
-		choiceMetrics.setItems(FXCollections.observableArrayList(
-				"Waiting Times", "Number of Patients", "Patients by Category"));
-		choiceMetrics.getSelectionModel().select(0);
-
+		
 		buttonSwitchUser.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
