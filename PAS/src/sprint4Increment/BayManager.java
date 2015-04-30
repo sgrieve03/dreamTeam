@@ -55,7 +55,7 @@ public class BayManager implements Serializable {
 	 * @throws InterruptedException
 	 */
 
-	public void treatPatient(Patient patient) throws InterruptedException {
+	public void treatPatient(Patient patient)  {
 
 		// print lines are for testing and will be removed prior to release
 		System.out
@@ -86,7 +86,8 @@ public class BayManager implements Serializable {
 
 		// set the length of time the patient will be in treatment (currently
 		// 10mins as per spec)
-		patient.setTreatmentTime();
+	}
+	public void setTreatmentTime(Patient patient){
 
 		// set the time the patient should be discharged, this can be
 		// incremented by 5 mins
@@ -103,7 +104,7 @@ public class BayManager implements Serializable {
 				+ patient.getTimeDischarged());
 		System.out.println("Treatment will last: "
 				+ patient.getPatientTreatmentTime() + " minutes");
-		Thread.sleep(2000);
+		
 		System.out
 				.println("BayLength in treatpatient" + patientListBays.size());
 
@@ -118,14 +119,15 @@ public class BayManager implements Serializable {
 	 * @throws InterruptedException
 	 */
 	public void processBaysQue() throws InterruptedException {
-
+		int time=0;
 		// if bays isnt empty
 		if (!patientListBays.isEmpty()) {
 			// move through the patients in bay
 			for (int i = 0; i < patientListBays.size(); i++) {
 				// check if their discharge time is now
+				TimeHandler.minutesTotal((TimeHandler.differenceInTime(patientListBays.get(i).getTimeDischarged(), TimeHandler.now())));
 				if (patientListBays.get(i).getTimeDischarged()
-						.equals(TimeHandler.now())) {
+						.equals(TimeHandler.now())||)<0) {
 					System.out.println(patientListBays.get(i).getFirstName()
 							+ " discharged");
 					// if it is remove the patient from bays and send them to
@@ -186,7 +188,6 @@ public class BayManager implements Serializable {
 	 * @param action
 	 */
 	public void dischargePatients(Patient patient, Action action) {
-		db.insertPatientStats(String.valueOf(patient.getPatientID()), TimeHandler.dateNow(), TimeHandler.minutesTotal(patient.getWaitingTime()), patient.getCategory());
 
 		// Assigning the patient to the baymanageradapter so they can be
 		// processed by the main hospital system

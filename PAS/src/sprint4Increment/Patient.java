@@ -22,6 +22,7 @@ public class Patient implements Serializable, Comparable<Patient> {
 	private int patientID;
 
 	Random rand = new Random();
+	Integer treatmentTime;
 
 	/**
 	 * Triage is the severity of the pataient's injury. 0 corresponds to
@@ -278,17 +279,12 @@ public class Patient implements Serializable, Comparable<Patient> {
 		this.medicalNotes = medicalNotes;
 	}
 
-	public int setTreatmentTime() {
-		this.lengthOfTreatmentInMinutes = rand.nextInt(10) + 1;
-		String discharged = TimeHandler.addTreatmentTime(getTimeEnteredBays(),
-				lengthOfTreatmentInMinutes);
-
+	public void setTreatmentTime(Integer treatmentTime) {
+		this.treatmentTime = treatmentTime;
+		String discharged = TimeHandler.addTreatmentTime(getTimeEnteredBays(),treatmentTime);
 		setTimeDischarged(discharged);
-
-		return lengthOfTreatmentInMinutes;
 	}
-
-	public int getPatientTreatmentTime() {
+		public int getPatientTreatmentTime() {
 		return this.lengthOfTreatmentInMinutes;
 	}
 
