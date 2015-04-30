@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+<StackPane maxHeight="550.0" maxWidth="750.0" minHeight="550.0"
+	minWidth="750.0" prefHeight="550.0" prefWidth="750.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="sprint4IncrementGUI.PatientViewController">
+	   <children>
+      <ImageView fitHeight="69.0" fitWidth="162.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="NHS-RGB.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="100.0" fitWidth="150.0" layoutX="172.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="PAS_logo.gif" />
+         </image>
+      </ImageView>
+      <TextField layoutX="105.0" layoutY="139.0" prefHeight="74.0" prefWidth="391.0" />
+   </children>	
+</StackPane>
+

@@ -186,6 +186,7 @@ public class BayManager implements Serializable {
 	 * @param action
 	 */
 	public void dischargePatients(Patient patient, Action action) {
+		db.insertPatientStats(String.valueOf(patient.getPatientID()), TimeHandler.dateNow(), TimeHandler.minutesTotal(patient.getWaitingTime()), patient.getCategory());
 
 		// Assigning the patient to the baymanageradapter so they can be
 		// processed by the main hospital system

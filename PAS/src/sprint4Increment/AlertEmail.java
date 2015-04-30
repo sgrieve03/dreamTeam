@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMessage;
  *
  */
 public class AlertEmail extends Communication{
+	DBConnection db;
 
 	/**
 	 * final String to repesent the username of the admin account
@@ -58,7 +59,9 @@ public class AlertEmail extends Communication{
 		setAddresses(addresses);
 		setSubject(subject);
 		setBody(body);
+		db.insertHospitalManagerStats(TimeHandler.dateNow(), TimeHandler.now());
 		sendCommunication();
+		
 	}// end sendEmailConstructor
 
 	/**

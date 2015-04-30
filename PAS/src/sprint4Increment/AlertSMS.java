@@ -17,6 +17,7 @@ import javax.mail.internet.*;
 	 *
 	 */
 	public class AlertSMS extends Communication{
+		DBConnection db;
 		/**
 		 * This is the username of the account from which the text message will be
 		 * sent
@@ -57,6 +58,9 @@ import javax.mail.internet.*;
 			setTo(to);
 			setBody(body);
 			sendCommunication();
+			for (String p: to){
+				db.insertOnCallStats(TimeHandler.dateNow(), TimeHandler.now(), p );
+			}
 		}// end SendSMS constructor
 
 		/**

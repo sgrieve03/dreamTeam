@@ -141,7 +141,7 @@ public class LoginController implements Initializable {
 				case "doctor":
 					VistaNavigator.loadVista(VistaNavigator.VISTA_7);
 					break;
-				case "manager":
+				case "systemadmin":
 					VistaNavigator.loadVista(VistaNavigator.VISTA_8);
 					break;
 				default:

@@ -256,6 +256,24 @@ public class TriageManager implements Serializable {
 	
 
 	}
+	public int checkWaitingTimes(LinkedList<Patient> triageList){
+		 LinkedList<Integer> waitingTimesList = null;
+		 for (Patient p: triageList){
+			 String timeEnteredTriage = p.getTimeEnteredTriage();
+			 String timeNow = TimeHandler.now();
+			 String currentWaitingTime = TimeHandler.differenceInTime(timeEnteredTriage, timeNow); 
+			 waitingTimesList.add(TimeHandler.minutesTotal(currentWaitingTime));
+			 
+		 }
+		 return averageWaitingTimes(waitingTimesList);
+	 }
+	 public int averageWaitingTimes(LinkedList<Integer> waitingTimesList){
+		 int totalWaitingTimes = 0;
+		 for (int p : waitingTimesList){
+			 totalWaitingTimes+=p;
+		 }
+		 return totalWaitingTimes/(waitingTimesList.size());
+	 }
 	
 	
 	
@@ -438,10 +456,11 @@ public class TriageManager implements Serializable {
 	 */
 	public String nextInQueue() {
 		// sort the queue in order of priority
-		triageList=sorted.displaySortedQueue(triageList);
+		sorted.displaySortedQueue(triageList);
 		// return the name of the first patient in the queue
 		if(triageList.size()>0){
-		return (triageList.getFirst().getFirstName()+" "+triageList.getFirst().getLastName()) ;
+			String nextInQueue = triageList.getFirst().getFirstName()+" "+triageList.getFirst().getFirstName();
+		return nextInQueue;
 		}
 		else return "No patients waiting";
 	}// end of nextInQueue
